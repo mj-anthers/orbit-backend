@@ -12,8 +12,6 @@ import organizationAddressRoute from './organization-address.route.js'
 import userAddressRoute from './user-address.route.js'
 import { commissionService } from '../services/index.js'
 import httpStatus from 'http-status'
-import wkhtmltopdf from 'wkhtmltopdf'
-import fs from 'fs'
 
 const router = Router()
 
@@ -45,9 +43,6 @@ router.get('/test/:id', async (req, res) => {
     /*const datum = await commissionService.disperseCommission({
         lead: req.params.id,
     })*/
-    wkhtmltopdf('<h1>Hello PDF</h1>', { pageSize: 'A4' }).pipe(
-        fs.createWriteStream('output.pdf')
-    )
     return res.status(200).json({})
 })
 
