@@ -1,0 +1,173 @@
+export default {
+    en: {
+        GLOBAL_S1: 'Server running',
+        GLOBAL_E1: 'Something went wrong',
+        GLOBAL_E2:
+            'Thou seekest a page that does not exist — return to thy path before confusion claims thee.',
+        GLOBAL_E3: 'Duplicate field value',
+        GLOBAL_E4: 'Invalid input data',
+        GLOBAL_E5: 'Invalid token!',
+        GLOBAL_E6: 'Your token has expired',
+        GLOBAL_E7: 'Invalid company.',
+        GLOBAL_E8: "Signature key couldn't be validated",
+        GLOBAL_E9: 'Invalid token!',
+        GLOBAL_E10: 'Invalid token!',
+        GLOBAL_E11: 'Invalid token!',
+        GLOBAL_E12: 'Thou have strayed too far. Get back to thy flock',
+        GLOBAL_E13: 'Invalid company.',
+        GLOBAL_E14: 'Unable to validate organization',
+        GLOBAL_E15: 'Unable to validate user organization',
+        GLOBAL_E16: 'Error while validating organization',
+        GLOBAL_E17: 'Error while validating organization',
+        GLOBAL_E18: 'Error while validating organization',
+        GLOBAL_E19: 'Error while validating lead program',
+        GLOBAL_E20: 'Error while validating lead provider',
+
+        AUTH_E1: 'Error while registering the user',
+        AUTH_E2: "User doesn't exist",
+        AUTH_E3: "User doesn't exist",
+        AUTH_E4: 'Invalid password',
+        AUTH_E5: 'Invalid credentials',
+        AUTH_E6: 'Error while logging in the user',
+        AUTH_E7: 'Error while logging in the user',
+        AUTH_E8: 'Error while validating the user',
+
+        AUTH_S1: 'User registered successfully',
+        AUTH_S2: 'User logged in successfully',
+
+        LEAD_PROVIDER_E1: 'Error while creating the lead-provider',
+        LEAD_PROVIDER_E2: 'Error while creating the lead-provider',
+        LEAD_PROVIDER_E3: 'Error while listing lead-provider',
+        LEAD_PROVIDER_E4: 'Error while listing lead-provider',
+        LEAD_PROVIDER_E5: 'Error while fetching lead-provider details',
+        LEAD_PROVIDER_E6: 'Error while fetching lead-provider details',
+        LEAD_PROVIDER_E7: 'Error while updating lead-provider details',
+        LEAD_PROVIDER_E8: 'Error while updating lead-provider details',
+        LEAD_PROVIDER_E9: 'Error while deleting lead-provider details',
+        LEAD_PROVIDER_E10: 'Error while deleting lead-provider details',
+        LEAD_PROVIDER_E11:
+            'Lead-provider already associated with the organization',
+        LEAD_PROVIDER_E12: 'Error which toggling lead-provider status',
+        LEAD_PROVIDER_E13: 'Error which toggling lead-provider status',
+        LEAD_PROVIDER_E14: 'Lead-provider not found',
+        LEAD_PROVIDER_E15: 'Lead-provider not found',
+
+        LEAD_PROVIDER_S1: 'Lead-provider created successfully',
+        LEAD_PROVIDER_S2: 'Lead-provider listed successfully',
+        LEAD_PROVIDER_S3: 'Lead-provider details fetched successfully',
+        LEAD_PROVIDER_S4: 'Lead-provider updated successfully',
+        LEAD_PROVIDER_S5: 'Lead-provider deleted successfully',
+        LEAD_PROVIDER_S6: 'Lead-provider status changed successfully',
+
+        ORGANIZATION_SETTING_E1:
+            'Error while fetching organization setting details',
+        ORGANIZATION_SETTING_E2:
+            'Error while fetching organization setting details',
+        ORGANIZATION_SETTING_E3:
+            'Error while updating organization setting details',
+        ORGANIZATION_SETTING_E4:
+            'Error while updating organization setting details',
+
+        ORGANIZATION_SETTING_S1: 'Organization setting fetched successfully',
+        ORGANIZATION_SETTING_S2: 'Organization setting updated successfully',
+
+        LEAD_PROVIDER_PROGRAM_E1:
+            'Error while creating the lead provider program',
+        LEAD_PROVIDER_PROGRAM_E2:
+            'Error while creating the lead provider program',
+        LEAD_PROVIDER_PROGRAM_E3: 'Error while listing lead provider program',
+        LEAD_PROVIDER_PROGRAM_E4: 'Error while listing lead provider program',
+        LEAD_PROVIDER_PROGRAM_E5:
+            'Error while fetching lead provider program details',
+        LEAD_PROVIDER_PROGRAM_E6:
+            'Error while fetching lead provider program details',
+        LEAD_PROVIDER_PROGRAM_E7:
+            'Error while updating lead provider program details',
+        LEAD_PROVIDER_PROGRAM_E8:
+            'Error while updating lead provider program details',
+        LEAD_PROVIDER_PROGRAM_E9:
+            'Error while deleting lead provider program details',
+        LEAD_PROVIDER_PROGRAM_E10:
+            'Error while deleting lead provider program details',
+        LEAD_PROVIDER_PROGRAM_E11:
+            'lead provider program already associated with the organization',
+        LEAD_PROVIDER_PROGRAM_E12:
+            'Error which toggling lead provider program status',
+        LEAD_PROVIDER_PROGRAM_E13:
+            'Error which toggling lead provider program status',
+        LEAD_PROVIDER_PROGRAM_E14: 'Lead provider program not found',
+        LEAD_PROVIDER_PROGRAM_E15: 'Lead provider program not found',
+        LEAD_PROVIDER_PROGRAM_E16: 'Lead provider program not found',
+
+        LEAD_PROVIDER_PROGRAM_S1: 'Lead provider program created successfully',
+        LEAD_PROVIDER_PROGRAM_S2: 'Lead provider program listed successfully',
+        LEAD_PROVIDER_PROGRAM_S3:
+            'Lead provider program details fetched successfully',
+        LEAD_PROVIDER_PROGRAM_S4: 'Lead provider program updated successfully',
+        LEAD_PROVIDER_PROGRAM_S5: 'Lead provider program deleted successfully',
+        LEAD_PROVIDER_PROGRAM_S6:
+            'Lead provider program status changed successfully',
+
+        LEAD_S1: 'Lead created successfully',
+        LEAD_S2: 'Lead listed successfully',
+        LEAD_S3: 'Lead details fetched successfully',
+        LEAD_S4: 'Lead updated successfully',
+        LEAD_S5: 'Lead deleted successfully',
+
+        LEAD_E1: 'Error while creating the lead',
+        LEAD_E2: 'Error while listing the lead',
+        LEAD_E3: 'Error while fetching the lead details',
+        LEAD_E4: 'Error while updating the lead details',
+        LEAD_E5: 'Error while deleting the lead',
+
+        LEAD_E6: 'Error while creating the lead',
+        LEAD_E7: 'Error while listing the lead',
+        LEAD_E8: 'Lead not found',
+        LEAD_E9: 'Error while fetching lead details',
+        LEAD_E10: 'Error while updating lead',
+        LEAD_E11: 'Error while deleting lead',
+        LEAD_E12: 'Lead not found',
+
+        ORGANIZATION_ADDRESS_S1: 'Organization address created successfully',
+        ORGANIZATION_ADDRESS_S2: 'Organization address listed successfully',
+        ORGANIZATION_ADDRESS_S3:
+            'Organization address details fetched successfully',
+        ORGANIZATION_ADDRESS_S4:
+            'Organization address details updated successfully',
+        ORGANIZATION_ADDRESS_S5: 'Organization address deleted successfully',
+
+        ORGANIZATION_ADDRESS_E1: 'Organization address failed to create',
+        ORGANIZATION_ADDRESS_E2: 'Organization address failed to create',
+        ORGANIZATION_ADDRESS_E3: 'Organization address failed to list',
+        ORGANIZATION_ADDRESS_E4: 'Organization address failed to list',
+        ORGANIZATION_ADDRESS_E5: 'Organization address failed to fetch details',
+        ORGANIZATION_ADDRESS_E6: 'Organization address failed to fetch details',
+        ORGANIZATION_ADDRESS_E7: 'Organization address failed to update',
+        ORGANIZATION_ADDRESS_E8: 'Organization address failed to update',
+        ORGANIZATION_ADDRESS_E9: 'Organization address failed to delete',
+        ORGANIZATION_ADDRESS_E10: 'Organization address failed to delete',
+        ORGANIZATION_ADDRESS_E11: "Organization address doesn't exist",
+        ORGANIZATION_ADDRESS_E12: "Organization address doesn't exist",
+        ORGANIZATION_ADDRESS_E13: "Organization address doesn't exist",
+
+        USER_ADDRESS_S1: 'User address created successfully',
+        USER_ADDRESS_S2: 'User addresses listed successfully',
+        USER_ADDRESS_S3: 'User address details fetched successfully',
+        USER_ADDRESS_S4: 'User address updated successfully',
+        USER_ADDRESS_S5: 'User address deleted successfully',
+
+        USER_ADDRESS_E1: 'Failed to create user address',
+        USER_ADDRESS_E2: 'Failed to create user address',
+        USER_ADDRESS_E3: 'Failed to list user addresses',
+        USER_ADDRESS_E4: 'Failed to list user addresses',
+        USER_ADDRESS_E5: 'Failed to fetch user address details',
+        USER_ADDRESS_E6: 'Failed to fetch user address details',
+        USER_ADDRESS_E7: 'Failed to update user address',
+        USER_ADDRESS_E8: 'Failed to update user address',
+        USER_ADDRESS_E9: 'Failed to delete user address',
+        USER_ADDRESS_E10: 'Failed to delete user address',
+        USER_ADDRESS_E11: "User address doesn't exist",
+        USER_ADDRESS_E12: "User address doesn't exist",
+        USER_ADDRESS_E13: "User address doesn't exist",
+    },
+}

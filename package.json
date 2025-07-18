@@ -1,0 +1,57 @@
+{
+  "name": "anthers-orbit-backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "engines": {
+    "npm": ">=11 <12.0.0",
+    "node": ">=22.0.0 < 23.0.0"
+  },
+  "scripts": {
+    "start": "node ./bin/www",
+    "debug": "DEBUG= node ./bin/www",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "mocha test/**/*.test.js --exit",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:seed": "sequelize-cli db:seed:all"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "@marmeto_engineering/core-auth": "^1.0.0",
+    "bcrypt": "^6.0.0",
+    "compression": "^1.8.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "helmet": "^7.2.0",
+    "http-status": "^2.1.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.1",
+    "morgan": "^1.10.0",
+    "nodemailer": "^7.0.4",
+    "nodemon": "^3.1.10",
+    "pg": "^8.16.0",
+    "sequelize": "^6.37.7",
+    "sequelize-cursor-pagination": "^3.5.1",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.1",
+    "chai": "^5.2.0",
+    "eslint": "^9.30.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.5.1",
+    "eslint-plugin-security": "^3.0.1",
+    "globals": "^16.3.0",
+    "mocha": "^10.8.2",
+    "prettier": "^3.6.2",
+    "sequelize-cli": "^6.6.3",
+    "supertest": "^6.3.4"
+  }
+}
