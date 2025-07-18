@@ -21,7 +21,6 @@
   "description": "",
   "type": "module",
   "dependencies": {
-    "@marmeto_engineering/core-auth": "^1.0.0",
     "bcrypt": "^6.0.0",
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
