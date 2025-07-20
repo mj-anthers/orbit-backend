@@ -3,6 +3,7 @@ import httpStatus from 'http-status'
 import { AppError, consoleLog } from '../utils/index.js'
 import {
     LeadProvider,
+    LeadProviderProgram,
     Organization,
     User,
     UserOrganization,
@@ -13,23 +14,21 @@ export default {
         user,
         userOrganization,
         leadProviderUser,
+        leadProviderProgram,
     }) => {
         try {
-            consoleLog({
-                user,
-                userOrganization,
-                leadProviderUser,
-            })
             const [record, created] = await LeadProvider.findOrCreate({
                 where: {
                     user: leadProviderUser.id,
                     organization: userOrganization.organizationDatum.id,
                     userOrganization: userOrganization.id,
+                    leadProviderProgram: leadProviderProgram.id,
                 },
                 defaults: {
                     user: leadProviderUser.id,
                     organization: userOrganization.organizationDatum.id,
                     userOrganization: userOrganization.id,
+                    leadProviderProgram: leadProviderProgram.id,
                     createdBy: user.id,
                     isActive: true,
                 },
@@ -77,6 +76,11 @@ export default {
                             },
                         ],
                     },
+                    {
+                        model: LeadProviderProgram,
+                        as: 'leadProviderProgramDatum',
+                        attributes: ['id', 'title'],
+                    },
                 ],
             }
             if (after) {
@@ -119,6 +123,11 @@ export default {
                                 attributes: ['id', 'name'],
                             },
                         ],
+                    },
+                    {
+                        model: LeadProviderProgram,
+                        as: 'leadProviderProgramDatum',
+                        attributes: ['id', 'title'],
                     },
                 ],
             })

@@ -3,7 +3,6 @@ import commonValidate from './common-validate.middleware.js'
 import {
     LEAD_PROVIDER_PROGRAM_BASE_RULE_ENUM,
     LEAD_PROVIDER_PROGRAM_CONDITION_OPERATOR_ENUM,
-    LEAD_PROVIDER_PROGRAM_TYPE_ENUM,
 } from '../../models/index.js'
 
 const leadProviderProgramConditionBaseSchema = Joi.object({
@@ -31,11 +30,6 @@ const leadProviderProgramBaseSchema = Joi.object({
     conditions: Joi.array()
         .items(leadProviderProgramConditionBaseSchema)
         .required(),
-    commissionPerInstall: Joi.number().required().allow(0),
-    commissionType: Joi.string().allow(
-        ...Object.values(LEAD_PROVIDER_PROGRAM_TYPE_ENUM)
-    ),
-    commissionValue: Joi.number().required().allow(0),
     commissionNeverExpire: Joi.bool().required(),
     commissionDuration: Joi.number().required().allow(0),
     commissionBase: Joi.string()
@@ -44,6 +38,9 @@ const leadProviderProgramBaseSchema = Joi.object({
     leadProviderProgramRequiresApproval: Joi.bool().required(),
     uninstallationEvent: Joi.string().allow().required(),
     uninstallationDuration: Joi.number().required().allow(0),
+    commissionEvents: Joi.array()
+        .items(commonValidate.commissionItem)
+        .required(),
 })
 
 const leadProviderProgramCreateSchema = {

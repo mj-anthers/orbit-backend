@@ -4,10 +4,13 @@ import { AppError, consoleLog } from '../utils/index.js'
 import {
     Lead,
     LEAD_STATUS_ENUM,
+    LeadCommissionEvent,
     LeadProvider,
     LeadProviderProgram,
+    LeadProviderProgramCommissionEvent,
     LeadProviderProgramCondition,
     User,
+    sequelize,
 } from '../../models/index.js'
 import { Op } from 'sequelize'
 import RuleEngine from '../helpers/rule-engine/RuleEngine.js'
@@ -16,7 +19,6 @@ export default {
     leadCreate: async ({
         user,
         leadProvider,
-        leadProviderProgram,
         leadCustomer,
         effectiveDate,
         notes,
@@ -30,33 +32,98 @@ export default {
         leadSource,
     }) => {
         try {
-            return await Lead.create({
-                leadProvider: leadProvider.id,
-                leadProviderProgram: leadProviderProgram.id,
-                customer: leadCustomer.id,
-                organization: leadProviderProgram.organization,
-                user: leadProvider.userLeadProviderDatum.id,
-                effectiveDate,
-                notes,
-                installStatus,
-                installDate,
-                country,
-                platformPlanName,
-                platformPlanPrice,
-                appPlanName,
-                appPlanPrice,
-                commissionPerInstall: leadProviderProgram.commissionPerInstall,
-                commissionType: leadProviderProgram.commissionType,
-                commissionValue: leadProviderProgram.commissionValue,
-                commissionNeverExpire:
-                    leadProviderProgram.commissionNeverExpire,
-                commissionDuration: leadProviderProgram.commissionDuration,
-                commissionBase: leadProviderProgram.commissionBase,
-                uninstallationEvent: leadProviderProgram.uninstallationEvent,
-                uninstallationDuration:
-                    leadProviderProgram.uninstallationDuration,
-                leadSource,
-                createdBy: user.id,
+            return await sequelize.transaction(async (transaction) => {
+                const leadProviderProgramDatum =
+                    await LeadProviderProgram.findOne({
+                        where: {
+                            id: leadProvider.leadProviderProgram,
+                        },
+                        include: [
+                            {
+                                model: LeadProviderProgramCommissionEvent,
+                                as: 'commissionEvents',
+                                attributes: [
+                                    'type',
+                                    'amount',
+                                    'commissionBasis',
+                                ],
+                                where: {
+                                    isDeleted: false,
+                                },
+                            },
+                        ],
+                    })
+
+                if (!leadProviderProgramDatum)
+                    throw new AppError(
+                        httpStatus.PRECONDITION_FAILED,
+                        'LEAD_E13'
+                    )
+
+                const leadDatum = await Lead.create(
+                    {
+                        leadProvider: leadProvider.id,
+                        leadProviderProgram: leadProvider.leadProviderProgram,
+                        customer: leadCustomer.id,
+                        organization: leadProvider.organization,
+                        user: leadProvider.userLeadProviderDatum.id,
+                        effectiveDate,
+                        notes,
+                        installStatus,
+                        installDate,
+                        country,
+                        platformPlanName,
+                        platformPlanPrice,
+                        appPlanName,
+                        appPlanPrice,
+                        commissionNeverExpire:
+                            leadProviderProgramDatum.commissionNeverExpire,
+                        commissionDuration:
+                            leadProviderProgramDatum.commissionDuration,
+                        commissionBase: leadProviderProgramDatum.commissionBase,
+                        uninstallationEvent:
+                            leadProviderProgramDatum.uninstallationEvent,
+                        uninstallationDuration:
+                            leadProviderProgramDatum.uninstallationDuration,
+                        leadSource,
+                        createdBy: user.id,
+                    },
+                    { transaction }
+                )
+
+                const parsedLeadCommissionEvents =
+                    leadProviderProgramDatum.commissionEvents.map(
+                        (commissionEvent) => {
+                            consoleLog({ commissionEvent })
+                            return {
+                                lead: leadDatum.id,
+                                organization: leadProvider.organization,
+                                type: commissionEvent.type,
+                                amount: commissionEvent.amount,
+                                commissionBasis:
+                                    commissionEvent.commissionBasis,
+                            }
+                        }
+                    )
+
+                await LeadCommissionEvent.bulkCreate(
+                    parsedLeadCommissionEvents,
+                    { transaction }
+                )
+
+                return {
+                    ...leadDatum.dataValues,
+                    commissionEvents: parsedLeadCommissionEvents.map(
+                        (commissionEvent) => {
+                            return {
+                                type: commissionEvent.type,
+                                amount: commissionEvent.amount,
+                                commissionBasis:
+                                    commissionEvent.commissionBasis,
+                            }
+                        }
+                    ),
+                }
             })
         } catch (error) {
             consoleLog(error)
@@ -138,6 +205,11 @@ export default {
                         as: 'leadProviderProgramDatum',
                         attributes: ['id', 'title'],
                     },
+                    {
+                        model: LeadCommissionEvent,
+                        as: 'commissionEvents',
+                        attributes: ['title', 'amount', 'commissionBasis'],
+                    },
                 ],
             })
             if (!leadDatum) throw new AppError(httpStatus.NOT_FOUND, 'LEAD_E8')
@@ -165,32 +237,69 @@ export default {
         platformPlanPrice,
         appPlanName,
         appPlanPrice,
+        commissionEvents,
     }) => {
         try {
-            await Lead.update(
-                {
-                    effectiveDate,
-                    note,
-                    status,
-                    notes,
-                    installStatus,
-                    installDate,
-                    country,
-                    platformPlanName,
-                    platformPlanPrice,
-                    appPlanName,
-                    appPlanPrice,
-                },
-                {
+            return await sequelize.transaction(async (transaction) => {
+                const leadDatum = await Lead.findOne({
                     where: {
                         id,
                         organization: {
                             [Op.in]: user.organizationIds,
                         },
                     },
-                }
-            )
-            return true
+                })
+                if (!leadDatum)
+                    throw new AppError(
+                        httpStatus.PRECONDITION_FAILED,
+                        'LEAD_E14'
+                    )
+                await Lead.update(
+                    {
+                        effectiveDate,
+                        note,
+                        status,
+                        notes,
+                        installStatus,
+                        installDate,
+                        country,
+                        platformPlanName,
+                        platformPlanPrice,
+                        appPlanName,
+                        appPlanPrice,
+                    },
+                    {
+                        where: {
+                            id,
+                            organization: {
+                                [Op.in]: user.organizationIds,
+                            },
+                        },
+                    }
+                )
+
+                await LeadCommissionEvent.update(
+                    { isDeleted: true },
+                    {
+                        where: { lead: id },
+                        transaction,
+                    }
+                )
+
+                const parsedCommissionEvents = commissionEvents.map(
+                    (condition) => ({
+                        ...condition,
+                        lead: leadDatum.id,
+                        organization: leadDatum.organization,
+                    })
+                )
+
+                await LeadCommissionEvent.bulkCreate(parsedCommissionEvents, {
+                    transaction,
+                })
+
+                return true
+            })
         } catch (error) {
             throwSpecificError(
                 error,

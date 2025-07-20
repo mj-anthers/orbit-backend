@@ -50,22 +50,6 @@ const LeadProviderProgram = sequelize.define(
             ),
             allowNull: false,
         },
-        commissionPerInstall: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 0,
-        },
-        commissionType: {
-            type: DataTypes.ENUM(
-                ...Object.values(LEAD_PROVIDER_PROGRAM_TYPE_ENUM)
-            ),
-            allowNull: false,
-        },
-        commissionValue: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 0,
-        },
         commissionNeverExpire: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
@@ -140,6 +124,16 @@ LeadProviderProgram.associate = (models) => {
     LeadProviderProgram.hasMany(models.Lead, {
         foreignKey: 'leadProviderProgram',
         as: 'leads',
+        onDelete: 'CASCADE',
+    })
+    LeadProviderProgram.hasMany(models.LeadProviderProgramCommissionEvent, {
+        foreignKey: 'leadProviderProgram',
+        as: 'commissionEvents',
+        onDelete: 'CASCADE',
+    })
+    LeadProviderProgram.hasMany(models.LeadProvider, {
+        foreignKey: 'leadProviderProgram',
+        as: 'leadProviders',
         onDelete: 'CASCADE',
     })
 }

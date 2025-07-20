@@ -19,6 +19,16 @@ module.exports = {
                 onUpdate: 'CASCADE',
                 onDelete: 'CASCADE',
             },
+            leadProviderProgram: {
+                type: Sequelize.UUID,
+                allowNull: false,
+                references: {
+                    model: 'leadProviderPrograms',
+                    key: 'id',
+                },
+                onUpdate: 'CASCADE',
+                onDelete: 'CASCADE',
+            },
             organization: {
                 type: Sequelize.UUID,
                 allowNull: false,

@@ -5,6 +5,7 @@ import { User } from '../../models/index.js'
 const leadProviderBaseSchema = Joi.object({
     email: commonValidate.validateEmail,
     userOrganization: commonValidate.validateUUID,
+    leadProviderProgram: commonValidate.validateUUID,
 })
 
 const leadProviderCreateSchema = {

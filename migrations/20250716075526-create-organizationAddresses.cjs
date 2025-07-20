@@ -74,6 +74,9 @@ module.exports = {
     },
 
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('addresses')
+        await queryInterface.dropTable('organizationAddresses')
+        await queryInterface.sequelize.query(
+            `DROP TYPE IF EXISTS address_type;`
+        )
     },
 }

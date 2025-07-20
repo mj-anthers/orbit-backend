@@ -1,7 +1,5 @@
 'use strict'
 
-const {DataTypes} = require("sequelize");
-const {CREDIT_DEBIT_ENUM} = require("../models/index.js");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {

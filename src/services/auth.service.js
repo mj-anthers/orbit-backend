@@ -61,6 +61,8 @@ export const authService = {
                 where: { email, isActive: true },
             })
 
+            if (!user) throw new AppError(httpStatus.BAD_REQUEST, 'AUTH_E9')
+
             const validatePassword = await comparePasswords(
                 password.trim(),
                 user.password

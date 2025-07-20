@@ -17,22 +17,47 @@ const LeadProvider = sequelize.define(
         user: {
             type: DataTypes.UUID,
             allowNull: false,
-            unique: true,
+            references: {
+                model: 'users',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+        },
+        leadProviderProgram: {
+            type: DataTypes.UUID,
+            allowNull: false,
+            references: {
+                model: 'leadProviderPrograms',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
         },
         organization: {
             type: DataTypes.UUID,
             allowNull: false,
-            unique: true,
+            references: {
+                model: 'organizations',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
         },
         userOrganization: {
             type: DataTypes.UUID,
             allowNull: false,
-            unique: true,
+            references: {
+                model: 'userOrganizations',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
         },
         createdBy: {
             type: DataTypes.UUID,
             allowNull: false,
-            unique: true,
+            references: {
+                model: 'users',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
         },
         isActive: {
             type: DataTypes.BOOLEAN,
@@ -72,6 +97,11 @@ LeadProvider.associate = (models) => {
     LeadProvider.belongsTo(models.User, {
         foreignKey: 'createdBy',
         as: 'userCreatedByDatum',
+        onDelete: 'CASCADE',
+    })
+    LeadProvider.belongsTo(models.LeadProviderProgram, {
+        foreignKey: 'leadProviderProgram',
+        as: 'leadProviderProgramDatum',
         onDelete: 'CASCADE',
     })
     LeadProvider.hasMany(models.Lead, {

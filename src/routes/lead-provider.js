@@ -10,6 +10,7 @@ router.post(
     '/',
     leadProviderValidate.leadProviderCreateValidate,
     commonValidate.validatePostUserOrganization,
+    commonValidate.validatePostLeadProviderProgram,
     leadProviderValidate.leadProviderUserValidate,
     leadProviderController.leadProviderCreate
 )

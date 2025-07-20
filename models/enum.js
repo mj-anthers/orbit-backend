@@ -1,5 +1,9 @@
 const ADDRESS_TYPE_ENUM = {
     PRIMARY: 'primary',
 }
+const COMMISSION_CALCULATION_TYPES = {
+    FIXED: 'fixed',
+    PERCENT: 'percent',
+}
 
-export { ADDRESS_TYPE_ENUM }
+export { ADDRESS_TYPE_ENUM, COMMISSION_CALCULATION_TYPES }

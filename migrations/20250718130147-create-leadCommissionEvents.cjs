@@ -1,53 +1,52 @@
 'use strict'
 
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('userAddresses', {
+        /**
+         * Add altering commands here.
+         *
+         * Example:
+         * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
+         */
+        await queryInterface.createTable('leadCommissionEvents', {
             id: {
                 type: Sequelize.UUID,
-                defaultValue: Sequelize.UUIDV4,
-                primaryKey: true,
                 allowNull: false,
-                unique: true,
+                primaryKey: true,
+                defaultValue: Sequelize.UUIDV4,
             },
-            user: {
+            lead: {
                 type: Sequelize.UUID,
                 allowNull: false,
                 references: {
-                    model: 'users',
+                    model: 'leads',
+                    key: 'id',
+                },
+                onDelete: 'CASCADE',
+            },
+            organization: {
+                type: Sequelize.UUID,
+                allowNull: false,
+                references: {
+                    model: 'organizations',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
                 onDelete: 'CASCADE',
             },
             type: {
-                type: 'address_type',
-                allowNull: false,
-                defaultValue: 'primary',
-            },
-            addressLine1: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            addressLine2: {
-                type: Sequelize.STRING,
-                allowNull: true,
-            },
-            city: {
-                type: Sequelize.STRING,
+            amount: {
+                type: Sequelize.FLOAT,
                 allowNull: false,
             },
-            province: {
-                type: Sequelize.STRING,
+            commissionBasis: {
+                type: 'enum_commission_calculation_type',
                 allowNull: false,
-            },
-            postalCode: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            country: {
-                type: Sequelize.STRING,
-                allowNull: false,
+                defaultValue: 'fixed',
             },
             isActive: {
                 type: Sequelize.BOOLEAN,
@@ -58,12 +57,10 @@ module.exports = {
                 defaultValue: false,
             },
             createdAt: {
-                allowNull: false,
                 type: Sequelize.DATE,
                 defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             },
             updatedAt: {
-                allowNull: false,
                 type: Sequelize.DATE,
                 defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             },
@@ -71,7 +68,12 @@ module.exports = {
     },
 
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('userAddresses')
-
+        /**
+         * Add reverting commands here.
+         *
+         * Example:
+         * await queryInterface.dropTable('users');
+         */
+        await queryInterface.dropTable('leadCommissionEvents')
     },
 }

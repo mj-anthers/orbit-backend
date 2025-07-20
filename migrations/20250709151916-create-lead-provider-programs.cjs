@@ -7,9 +7,6 @@ module.exports = {
       CREATE TYPE enum_lead_provider_programs_base_rule AS ENUM ('any', 'all');
     `)
         await queryInterface.sequelize.query(`
-      CREATE TYPE enum_lead_provider_programs_type AS ENUM ('fixed', 'percent');
-    `)
-        await queryInterface.sequelize.query(`
       CREATE TYPE enum_lead_provider_programs_commission_base AS ENUM ('netRevenue', 'grossRevenue');
     `)
         await queryInterface.sequelize.query(`
@@ -43,20 +40,6 @@ module.exports = {
             baseRule: {
                 type: 'enum_lead_provider_programs_base_rule',
                 allowNull: false,
-            },
-            commissionPerInstall: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-                defaultValue: 0,
-            },
-            commissionType: {
-                type: 'enum_lead_provider_programs_type',
-                allowNull: false,
-            },
-            commissionValue: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-                defaultValue: 0,
             },
             commissionNeverExpire: {
                 type: Sequelize.BOOLEAN,
@@ -116,7 +99,6 @@ module.exports = {
         await queryInterface.dropTable('leadProviderPrograms')
         await queryInterface.sequelize.query(`DROP TYPE IF EXISTS enum_lead_provider_programs_uninstallation_event;`)
         await queryInterface.sequelize.query(`DROP TYPE IF EXISTS enum_lead_provider_programs_commission_base;`)
-        await queryInterface.sequelize.query(`DROP TYPE IF EXISTS enum_lead_provider_programs_type;`)
         await queryInterface.sequelize.query(`DROP TYPE IF EXISTS enum_lead_provider_programs_base_rule;`)
 
     },

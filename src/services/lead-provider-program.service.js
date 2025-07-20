@@ -5,7 +5,9 @@ import { AppError } from '../utils/index.js'
 import {
     LeadProviderProgram,
     LeadProviderProgramCondition,
+    sequelize,
 } from '../../models/index.js'
+import { LeadProviderProgramCommissionEvent } from '../../models/lead-provider-program-commission-event.model.js'
 
 export default {
     leadProviderProgramCreate: async ({
@@ -13,53 +15,83 @@ export default {
         baseRule,
         userOrganization,
         conditions,
-        commissionPerInstall,
-        commissionType,
-        commissionValue,
         commissionNeverExpire,
         commissionDuration,
         commissionBase,
         leadProviderProgramRequiresApproval,
         uninstallationEvent,
         uninstallationDuration,
+        commissionEvents,
     }) => {
         try {
-            const leadProviderProgramDatum = await LeadProviderProgram.create({
-                title,
-                baseRule,
-                organization: userOrganization.organizationDatum.id,
-                commissionPerInstall,
-                commissionType,
-                commissionValue,
-                commissionNeverExpire,
-                commissionDuration,
-                commissionBase,
-                leadProviderProgramRequiresApproval,
-                uninstallationEvent,
-                uninstallationDuration,
-            })
+            return await sequelize.transaction(async (transaction) => {
+                const leadProviderProgramDatum =
+                    await LeadProviderProgram.create(
+                        {
+                            title,
+                            baseRule,
+                            organization: userOrganization.organizationDatum.id,
+                            commissionNeverExpire,
+                            commissionDuration,
+                            commissionBase,
+                            leadProviderProgramRequiresApproval,
+                            uninstallationEvent,
+                            uninstallationDuration,
+                        },
+                        { transaction }
+                    )
 
-            const parsedConditions = conditions.map((condition) => {
+                const parsedConditions = conditions.map((condition) => {
+                    return {
+                        ...condition,
+                        leadProviderProgram: leadProviderProgramDatum.id,
+                        organization: userOrganization.organizationDatum.id,
+                    }
+                })
+
+                const leadProviderProgramConditions =
+                    await LeadProviderProgramCondition.bulkCreate(
+                        parsedConditions,
+                        { transaction }
+                    )
+
+                const parsedCommissions = commissionEvents.map((commission) => {
+                    return {
+                        leadProviderProgram: leadProviderProgramDatum.id,
+                        organization: userOrganization.organizationDatum.id,
+                        ...commission,
+                    }
+                })
+
+                const leadProviderProgramCommissionEvents =
+                    await LeadProviderProgramCommissionEvent.bulkCreate(
+                        parsedCommissions,
+                        { transaction }
+                    )
+
                 return {
-                    ...condition,
-                    leadProviderProgram: leadProviderProgramDatum.id,
-                    organization: userOrganization.organizationDatum.id,
+                    ...leadProviderProgramDatum.dataValues,
+                    conditions: leadProviderProgramConditions.map(
+                        (condition) => {
+                            return {
+                                type: condition.type,
+                                operator: condition.operator,
+                                values: condition.values,
+                            }
+                        }
+                    ),
+                    commissionEvents: leadProviderProgramCommissionEvents.map(
+                        (commissionEvent) => {
+                            return {
+                                type: commissionEvent.type,
+                                amount: commissionEvent.amount,
+                                commissionBasis:
+                                    commissionEvent.commissionBasis,
+                            }
+                        }
+                    ),
                 }
             })
-
-            const leadProviderProgramConditions =
-                await LeadProviderProgramCondition.bulkCreate(parsedConditions)
-
-            return {
-                ...leadProviderProgramDatum.dataValues,
-                conditions: leadProviderProgramConditions.map((condition) => {
-                    return {
-                        type: condition.type,
-                        operator: condition.operator,
-                        values: condition.values,
-                    }
-                }),
-            }
         } catch (error) {
             throwSpecificError(
                 error,
@@ -107,6 +139,17 @@ export default {
                         model: LeadProviderProgramCondition,
                         as: 'conditions',
                         attributes: ['type', 'operator', 'values'],
+                        where: {
+                            isDeleted: false,
+                        },
+                    },
+                    {
+                        model: LeadProviderProgramCommissionEvent,
+                        as: 'commissionEvents',
+                        attributes: ['type', 'amount', 'commissionBasis'],
+                        where: {
+                            isDeleted: false,
+                        },
                     },
                 ],
                 order: [['createdAt', 'DESC']],
@@ -127,52 +170,103 @@ export default {
     },
     leadProviderProgramUpdate: async ({
         id,
+        user,
         title,
         baseRule,
-        user,
         userOrganization,
         conditions,
+        commissionNeverExpire,
+        commissionDuration,
+        commissionBase,
+        leadProviderProgramRequiresApproval,
+        uninstallationEvent,
+        uninstallationDuration,
+        commissionEvents,
     }) => {
         try {
-            const leadProviderProgramDatum = await LeadProviderProgram.findOne({
-                where: {
-                    id,
-                    organization: {
-                        [Op.in]: user.organizationIds,
+            return await sequelize.transaction(async (transaction) => {
+                // Step 1: Update main LeadProviderProgram
+                const [updated] = await LeadProviderProgram.update(
+                    {
+                        title,
+                        baseRule,
+                        userOrganization,
+                        conditions,
+                        commissionNeverExpire,
+                        commissionDuration,
+                        commissionBase,
+                        leadProviderProgramRequiresApproval,
+                        uninstallationEvent,
+                        uninstallationDuration,
+                        commissionEvents,
                     },
-                },
-            })
-            if (!leadProviderProgramDatum)
-                throw new AppError(
-                    httpStatus.NOT_FOUND,
-                    'LEAD_PROVIDER_PROGRAM_E14'
+                    {
+                        where: {
+                            id,
+                            organization: {
+                                [Op.in]: user.organizationIds,
+                            },
+                        },
+                        transaction,
+                    }
                 )
-            leadProviderProgramDatum.title = title
-            leadProviderProgramDatum.baseRule = baseRule
-            leadProviderProgramDatum.organization =
-                userOrganization.organizationDatum.id
-            leadProviderProgramDatum.userOrganization = userOrganization.id
-            await leadProviderProgramDatum.update()
 
-            const parsedConditions = conditions.map((condition) => {
-                return {
+                if (updated === 0) {
+                    throw new AppError(
+                        httpStatus.NOT_FOUND,
+                        'LEAD_PROVIDER_PROGRAM_E14'
+                    )
+                }
+
+                // Step 2: Mark old conditions as deleted
+                await LeadProviderProgramCondition.update(
+                    { isDeleted: true },
+                    {
+                        where: { leadProviderProgram: id },
+                        transaction,
+                    }
+                )
+
+                // Step 3: Create new conditions
+                const parsedConditions = conditions.map((condition) => ({
                     ...condition,
                     leadProviderProgram: id,
                     organization: userOrganization.organizationDatum.id,
-                }
-            })
-            await LeadProviderProgramCondition.update(
-                {
-                    isDeleted: true,
-                },
-                {
-                    where: {
+                }))
+
+                await LeadProviderProgramCondition.bulkCreate(
+                    parsedConditions,
+                    {
+                        transaction,
+                    }
+                )
+
+                await LeadProviderProgramCommissionEvent.update(
+                    { isDeleted: true },
+                    {
+                        where: { leadProviderProgram: id },
+                        transaction,
+                    }
+                )
+
+                // Step 4: Create new commission events
+                const parsedCommissions = commissionEvents.map(
+                    (commission) => ({
                         leadProviderProgram: id,
-                    },
-                }
-            )
-            await LeadProviderProgramCondition.bulkCreate(parsedConditions)
-            return true
+                        organization: userOrganization.organizationDatum.id,
+                        ...commission,
+                    })
+                )
+
+                await LeadProviderProgramCommissionEvent.bulkCreate(
+                    parsedCommissions,
+                    {
+                        transaction,
+                    }
+                )
+
+                return true
+            })
         } catch (error) {
             throwSpecificError(
                 error,

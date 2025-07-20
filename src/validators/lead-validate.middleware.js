@@ -17,7 +17,6 @@ const customerBaseSchema = Joi.object({
 
 const leadBaseSchema = Joi.object({
     leadProvider: commonValidate.validateUUID,
-    leadProviderProgram: commonValidate.validateUUID,
     customer: customerBaseSchema,
     effectiveDate: Joi.date().required(),
     notes: Joi.string().allow(null),
@@ -56,6 +55,9 @@ const leadUpdateSchema = {
         platformPlanPrice: Joi.number().min(0).required(),
         appPlanName: Joi.string().required().allow(null),
         appPlanPrice: Joi.number().min(0).required(),
+        commissionEvents: Joi.array()
+            .items(commonValidate.commissionItem)
+            .required(),
     },
 }
 
@@ -64,7 +66,7 @@ const leadCustomerValidate = async (req, res, next) => {
         const [record] = await Customer.findOrCreate({
             where: {
                 email: req.body.customer.email,
-                organization: req.leadProviderProgram.organization,
+                organization: req.leadProvider.organization,
             },
             defaults: {
                 name: req.body.customer.name,

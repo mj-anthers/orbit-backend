@@ -116,21 +116,6 @@ module.exports = {
                 allowNull: true,
                 defaultValue: null,
             },
-            commissionPerInstall: {
-                type: Sequelize.FLOAT,
-                allowNull: false,
-                defaultValue: 0,
-            },
-            commissionType: {
-                type: 'enum_lead_provider_programs_type',
-                allowNull: false,
-                defaultValue: 'fixed',
-            },
-            commissionValue: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-                defaultValue: 0,
-            },
             commissionNeverExpire: {
                 type: Sequelize.BOOLEAN,
                 allowNull: false,

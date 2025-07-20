@@ -13,7 +13,6 @@ export default {
                     ...req.body,
                     leadSource: req.leadSource,
                     user: req.user,
-                    leadProviderProgram: req.leadProviderProgram,
                     leadProvider: req.leadProvider,
                     leadCustomer: req.leadCustomer,
                 }),

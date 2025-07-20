@@ -20,7 +20,7 @@ export default {
         GLOBAL_E16: 'Error while validating organization',
         GLOBAL_E17: 'Error while validating organization',
         GLOBAL_E18: 'Error while validating organization',
-        GLOBAL_E19: 'Error while validating lead program',
+        GLOBAL_E19: 'Error while validating lead provider program',
         GLOBAL_E20: 'Error while validating lead provider',
 
         AUTH_E1: 'Error while registering the user',
@@ -31,6 +31,7 @@ export default {
         AUTH_E6: 'Error while logging in the user',
         AUTH_E7: 'Error while logging in the user',
         AUTH_E8: 'Error while validating the user',
+        AUTH_E9: 'Error while validating the user',
 
         AUTH_S1: 'User registered successfully',
         AUTH_S2: 'User logged in successfully',
@@ -127,6 +128,8 @@ export default {
         LEAD_E10: 'Error while updating lead',
         LEAD_E11: 'Error while deleting lead',
         LEAD_E12: 'Lead not found',
+        LEAD_E13: 'Lead provider program not found',
+        LEAD_E14: 'Lead failed to validate',
 
         ORGANIZATION_ADDRESS_S1: 'Organization address created successfully',
         ORGANIZATION_ADDRESS_S2: 'Organization address listed successfully',

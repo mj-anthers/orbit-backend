@@ -9,6 +9,7 @@ import {
     UserOrganization,
 } from '../../models/index.js'
 import { Op } from 'sequelize'
+import { COMMISSION_CALCULATION_TYPES } from '../../models/enum.js'
 
 const pick = (object, keys) => {
     return keys.reduce((obj, key) => {
@@ -302,6 +303,14 @@ const validateParamLeadProvider = asyncHandler(async (req, res, next) => {
     }
 })
 
+const commissionItem = Joi.object({
+    type: Joi.string().allow().required(),
+    amount: Joi.number().required(),
+    commissionBasis: Joi.string()
+        .valid(...Object.values(COMMISSION_CALCULATION_TYPES))
+        .required(),
+})
+
 export default {
     validate,
     validateUUID,
@@ -315,4 +324,5 @@ export default {
     validateParamLeadProviderProgram,
     validatePostLeadProvider,
     validateParamLeadProvider,
+    commissionItem,
 }

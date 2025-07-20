@@ -9,7 +9,6 @@ const router = express.Router()
 router.post(
     '/',
     leadValidate.leadCreateValidate,
-    commonValidate.validatePostLeadProviderProgram,
     commonValidate.validatePostLeadProvider,
     leadValidate.leadCustomerValidate,
     leadValidate.leadSource,

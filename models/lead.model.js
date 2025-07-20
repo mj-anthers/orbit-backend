@@ -3,7 +3,6 @@ import sequelize from '../config/db/database.js'
 import sequelizeCursorPaginate from 'sequelize-cursor-pagination'
 import {
     LEAD_PROVIDER_PROGRAM_COMMISSION_BASE_ENUM,
-    LEAD_PROVIDER_PROGRAM_TYPE_ENUM,
     LEAD_PROVIDER_PROGRAM_UNINSTALLATION_EVENT_ENUM,
 } from './lead-provider-program.model.js'
 
@@ -29,61 +28,35 @@ const Lead = sequelize.define(
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
-            allowNull: false,
         },
         leadProvider: {
             type: DataTypes.UUID,
             allowNull: false,
-            references: {
-                model: 'leadProviders',
-                key: 'id',
-            },
-        },
-        leadProviderProgram: {
-            type: DataTypes.UUID,
-            allowNull: false,
-            references: {
-                model: 'leadProviderPrograms',
-                key: 'id',
-            },
         },
         user: {
             type: DataTypes.UUID,
             allowNull: false,
-            references: {
-                model: 'users',
-                key: 'id',
-            },
+        },
+        leadProviderProgram: {
+            type: DataTypes.UUID,
+            allowNull: false,
         },
         organization: {
             type: DataTypes.UUID,
             allowNull: false,
-            references: {
-                model: 'organizations',
-                key: 'id',
-            },
         },
         customer: {
             type: DataTypes.UUID,
             allowNull: false,
-            references: {
-                model: 'customers',
-                key: 'id',
-            },
         },
         effectiveDate: {
             type: DataTypes.DATE,
             allowNull: false,
         },
-        notes: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            defaultValue: null,
-        },
         status: {
             type: DataTypes.ENUM(...Object.values(LEAD_STATUS_ENUM)),
             allowNull: false,
-            defaultValue: LEAD_STATUS_ENUM.PENDING,
+            defaultValue: 'pending',
         },
         installStatus: {
             type: DataTypes.BOOLEAN,
@@ -125,23 +98,6 @@ const Lead = sequelize.define(
             allowNull: true,
             defaultValue: null,
         },
-        commissionPerInstall: {
-            type: DataTypes.FLOAT,
-            allowNull: false,
-            defaultValue: 0,
-        },
-        commissionType: {
-            type: DataTypes.ENUM(
-                ...Object.values(LEAD_PROVIDER_PROGRAM_TYPE_ENUM)
-            ),
-            allowNull: false,
-            defaultValue: LEAD_PROVIDER_PROGRAM_TYPE_ENUM.FIXED,
-        },
-        commissionValue: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 0,
-        },
         commissionNeverExpire: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
@@ -175,6 +131,11 @@ const Lead = sequelize.define(
             allowNull: false,
             defaultValue: 0,
         },
+        notes: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: null,
+        },
         leadSource: {
             type: DataTypes.ENUM(...Object.values(LEAD_SOURCE_ENUM)),
             allowNull: false,
@@ -182,10 +143,6 @@ const Lead = sequelize.define(
         createdBy: {
             type: DataTypes.UUID,
             allowNull: false,
-            references: {
-                model: 'users',
-                key: 'id',
-            },
         },
         isActive: {
             type: DataTypes.BOOLEAN,
@@ -236,6 +193,11 @@ Lead.associate = (models) => {
     })
     Lead.belongsTo(models.User, {
         foreignKey: 'createdBy',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+    })
+    Lead.hasMany(models.LeadCommissionEvent, {
+        foreignKey: 'lead',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
     })

@@ -11,6 +11,7 @@ export default {
                 user: req.user,
                 userOrganization: req.userOrganization,
                 leadProviderUser: req.leadProviderUser,
+                leadProviderProgram: req.leadProviderProgram,
             })
             return ResponseHandler.success(req, res, {
                 code: httpStatus.CREATED,
