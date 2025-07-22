@@ -7,7 +7,7 @@ import {
 } from './app-logger.js'
 import asyncHandler from './async-handler.js'
 import ResponseHandler from './response-handler.js'
-import { hashPassword, comparePasswords } from './hash.js'
+import { hashPassword, comparePasswords, signUUID } from './hash.js'
 
 export {
     AppError,
@@ -19,4 +19,5 @@ export {
     consoleLog,
     hashPassword,
     comparePasswords,
+    signUUID,
 }

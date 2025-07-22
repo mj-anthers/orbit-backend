@@ -10,8 +10,10 @@ import leadProviderProgramRouter from './lead-provider-program.js'
 import leadRouter from './lead.route.js'
 import organizationAddressRoute from './organization-address.route.js'
 import userAddressRoute from './user-address.route.js'
+import callBackRoute from './callback.route.js'
 import { commissionService } from '../services/index.js'
 import httpStatus from 'http-status'
+import { consoleLog } from '../utils/index.js'
 
 const router = Router()
 
@@ -38,6 +40,8 @@ router.use('/lead-provider-program', authMiddleware, leadProviderProgramRouter)
 router.use('/lead', authMiddleware, leadRouter)
 router.use('/organization-address', authMiddleware, organizationAddressRoute)
 router.use('/user-address', authMiddleware, userAddressRoute)
+
+router.use('/callback', callBackRoute)
 
 router.get('/test/:id', async (req, res) => {
     /*const datum = await commissionService.disperseCommission({

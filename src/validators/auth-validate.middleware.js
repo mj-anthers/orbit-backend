@@ -116,10 +116,18 @@ const setupInvitationSchema = {
     }),
 }
 
+const ssoSchema = {
+    body: Joi.object({
+        email: commonValidate.validateEmail,
+    }),
+}
+
 // Export individual validation middlewares
 export const validateCheckEmail = commonValidate.validate(emailCheckSchema)
 export const validateSignup = commonValidate.validate(signupSchema)
 export const validateLogin = commonValidate.validate(loginSchema)
+export const validateSSO = commonValidate.validate(ssoSchema)
+
 export const validateSelectOrganization = commonValidate.validate(
     selectOrganizationSchema
 )

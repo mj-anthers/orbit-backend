@@ -5,6 +5,7 @@ import leadService from './lead.service.js'
 import commissionService from './commission.service.js'
 import organizationAddressService from './organization-address.service.js'
 import userAddressService from './user-address.service.js'
+import callBackService from './callback.service.js'
 
 export {
     leadProviderService,
@@ -14,4 +15,5 @@ export {
     commissionService,
     organizationAddressService,
     userAddressService,
+    callBackService,
 }

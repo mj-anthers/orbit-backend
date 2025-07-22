@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt'
 import { consoleLog } from './app-logger.js'
+import crypto from 'crypto'
 
 const SALT_ROUNDS = 10
 
@@ -27,4 +28,11 @@ const comparePasswords = async (plainPassword, hashedPassword) => {
     }
 }
 
-export { hashPassword, comparePasswords }
+const signUUID = (uuid) => {
+    return crypto
+        .createHmac('sha256', process.env.IDENTITY_TOKEN)
+        .update(uuid, 'utf8')
+        .digest('hex')
+}
+
+export { hashPassword, comparePasswords, signUUID }

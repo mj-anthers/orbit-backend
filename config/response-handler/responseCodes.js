@@ -32,6 +32,8 @@ export default {
         AUTH_E7: 'Error while logging in the user',
         AUTH_E8: 'Error while validating the user',
         AUTH_E9: 'Error while validating the user',
+        AUTH_E10: 'Error while SSO',
+        AUTH_E11: 'Error while SSO',
 
         AUTH_S1: 'User registered successfully',
         AUTH_S2: 'User logged in successfully',
@@ -172,5 +174,10 @@ export default {
         USER_ADDRESS_E11: "User address doesn't exist",
         USER_ADDRESS_E12: "User address doesn't exist",
         USER_ADDRESS_E13: "User address doesn't exist",
+
+        CALLBACK_E1: 'Error while generating user session',
+        CALLBACK_E2: 'Error while generating user session',
+
+        CALLBACK_S1: 'Data returned successfully',
     },
 }

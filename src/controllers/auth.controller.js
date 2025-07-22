@@ -202,3 +202,16 @@ export const logout = asyncHandler((req, res) => {
         throwSpecificError(error, httpStatus.INTERNAL_SERVER_ERROR, 'AUTH_E3')
     }
 })
+
+export const sso = asyncHandler(async (req, res) => {
+    try {
+        const data = await authService.ssoLogin(req.body.email)
+        return ResponseHandler.success(req, res, {
+            code: httpStatus.OK,
+            messageCode: 'AUTH_S2',
+            data,
+        })
+    } catch (error) {
+        throwSpecificError(error, httpStatus.INTERNAL_SERVER_ERROR, 'AUTH_E10')
+    }
+})

@@ -4,6 +4,7 @@ import leadProviderProgramController from './lead-provider-program.controller.js
 import leadController from './lead.controller.js'
 import organizationAddressController from './organization-address.controller.js'
 import userAddressController from './user-address.controller.js'
+import callBackController from './callback.controller.js'
 
 export {
     leadProviderController,
@@ -12,4 +13,5 @@ export {
     leadController,
     organizationAddressController,
     userAddressController,
+    callBackController,
 }

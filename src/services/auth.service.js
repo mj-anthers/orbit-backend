@@ -10,6 +10,8 @@ import {
 import { AppError, comparePasswords, consoleLog } from '../utils/index.js'
 import httpStatus from 'http-status'
 import { throwSpecificError } from '../middlewares/error.js'
+import Identity from '../helpers/identity.js'
+import Redis from '../../redis/index.js'
 
 export const authService = {
     /**
@@ -55,7 +57,7 @@ export const authService = {
      * Company information is retrieved separately for security. This prevents
      * information leakage and follows proper multi-tenant security practices.
      */
-    async validateLogin(email, password) {
+    /*async validateLogin(email, password) {
         try {
             const user = await User.findOne({
                 where: { email, isActive: true },
@@ -100,14 +102,13 @@ export const authService = {
                 // SECURITY FIX: NO companies array - prevent information leakage
             }
         } catch (error) {
-            consoleLog(error)
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
                 'AUTH_E7'
             )
         }
-    },
+    },*/
 
     /**
      * FIXED: Get user companies with proper authentication (no password needed)
@@ -529,5 +530,97 @@ export const authService = {
         // Update last access time
         session.lastAccess = new Date()
         return true
+    },
+
+    async ssoLogin(email) {
+        try {
+            const identity = new Identity()
+            return identity.ssoRedirectToken(email)
+        } catch (error) {
+            throwSpecificError(
+                error,
+                httpStatus.INTERNAL_SERVER_ERROR,
+                'AUTH_E11'
+            )
+        }
+    },
+
+    async login({ firstName, lastName, email, session }) {
+        try {
+            const user = await User.findOne({
+                where: { email, isActive: true },
+            })
+
+            if (!user) throw new AppError(httpStatus.BAD_REQUEST, 'AUTH_E9')
+
+            // Update last login timestamp
+            await User.update(
+                {
+                    firstName,
+                    lastName,
+                    lastLoginAt: new Date(),
+                },
+                {
+                    where: { email, isActive: true },
+                }
+            )
+
+            await Redis.setUserSSOToken(email, session)
+
+            // SECURITY FIX: Generate base token with session info
+            const baseToken = jwt.sign(
+                {
+                    user: user.id,
+                    email: user.email,
+                    type: 'base',
+                    loginAt: Date.now(), // Prevent token replay attacks
+                },
+                process.env.JWT_SECRET,
+                { expiresIn: '15m' } // Short-lived base token for security
+            )
+
+            return {
+                token: baseToken,
+                user: {
+                    id: user.id,
+                    email: user.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                },
+                // SECURITY FIX: NO companies array - prevent information leakage
+            }
+        } catch (error) {
+            throwSpecificError(
+                error,
+                httpStatus.INTERNAL_SERVER_ERROR,
+                'AUTH_E7'
+            )
+        }
+    },
+
+    async signUp({ firstName, lastName, email, session }) {
+        try {
+            // Auto-detect if user exists by checking email in database
+            const existingUser = await User.findOne({
+                where: { email, isActive: true },
+            })
+
+            if (existingUser) return this.login({ email, session })
+
+            await User.create({
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+            })
+
+            return this.login({ email, session })
+        } catch (error) {
+            consoleLog(error)
+            throwSpecificError(
+                error,
+                httpStatus.INTERNAL_SERVER_ERROR,
+                'AUTH_E5'
+            )
+        }
     },
 }
