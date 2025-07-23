@@ -22,6 +22,7 @@ const LeadProvider = sequelize.define(
                 key: 'id',
             },
             onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         leadProviderProgram: {
             type: DataTypes.UUID,
@@ -31,6 +32,7 @@ const LeadProvider = sequelize.define(
                 key: 'id',
             },
             onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         organization: {
             type: DataTypes.UUID,
@@ -40,6 +42,7 @@ const LeadProvider = sequelize.define(
                 key: 'id',
             },
             onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         userOrganization: {
             type: DataTypes.UUID,
@@ -49,6 +52,7 @@ const LeadProvider = sequelize.define(
                 key: 'id',
             },
             onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         createdBy: {
             type: DataTypes.UUID,
@@ -58,6 +62,7 @@ const LeadProvider = sequelize.define(
                 key: 'id',
             },
             onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         isActive: {
             type: DataTypes.BOOLEAN,

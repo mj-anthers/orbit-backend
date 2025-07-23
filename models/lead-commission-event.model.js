@@ -22,6 +22,7 @@ const LeadCommissionEvent = sequelize.define(
                 key: 'id',
             },
             onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         organization: {
             type: DataTypes.UUID,

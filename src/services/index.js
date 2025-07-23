@@ -7,6 +7,7 @@ import organizationAddressService from './organization-address.service.js'
 import userAddressService from './user-address.service.js'
 import callBackService from './callback.service.js'
 import organizationService from './organization.service.js'
+import assetsService from './assets.service.js'
 
 export {
     leadProviderService,
@@ -18,4 +19,6 @@ export {
     userAddressService,
     callBackService,
     organizationService,
+
+    assetsService,
 }

@@ -4,7 +4,11 @@ import {
     Customer,
     LEAD_SOURCE_ENUM,
     LEAD_STATUS_ENUM,
+    LeadProvider,
+    LeadProviderProgram,
 } from '../../models/index.js'
+import httpStatus from 'http-status'
+import { AppError } from '../utils/index.js'
 
 const customerBaseSchema = Joi.object({
     name: Joi.string().trim().min(2).max(50).required().messages({
@@ -27,6 +31,7 @@ const leadBaseSchema = Joi.object({
     platformPlanPrice: Joi.number().min(0).required(),
     appPlanName: Joi.string().required().allow(null),
     appPlanPrice: Joi.number().min(0).required(),
+    source: Joi.string().valid(...Object.values(LEAD_SOURCE_ENUM)),
 })
 
 const leadCreateSchema = {
@@ -83,8 +88,45 @@ const leadCustomerValidate = async (req, res, next) => {
 }
 
 const leadSource = async (req, res, next) => {
-    req.leadSource = LEAD_SOURCE_ENUM.ORGANIZATION
-    next()
+    try {
+        const leadProvider = await LeadProvider.findOne({
+            where: {
+                id: req.body.leadProvider,
+                isDeleted: false,
+            },
+        })
+
+        const leadProviderProgramDatum = await LeadProviderProgram.findOne({
+            where: {
+                id: leadProvider.leadProviderProgram,
+            },
+        })
+
+        if (req.body.source === LEAD_SOURCE_ENUM.ORGANIZATION) {
+            const leadProviderProgramBelongsToOrganization =
+                req.user.organizationIds.includes(
+                    leadProviderProgramDatum.organization
+                )
+
+            if (!leadProviderProgramBelongsToOrganization)
+                throw new AppError(httpStatus.UNAUTHORIZED, 'LEAD_E15')
+
+            req.leadSource = LEAD_SOURCE_ENUM.ORGANIZATION
+        }
+
+        if (req.body.source === LEAD_SOURCE_ENUM.LEAD_PROVIDER) {
+            if (req.user.id !== leadProvider.user)
+                throw new AppError(httpStatus.UNAUTHORIZED, 'LEAD_E16')
+
+            req.leadSource = LEAD_SOURCE_ENUM.LEAD_PROVIDER
+        }
+
+        req.leadProvider = leadProvider
+
+        next()
+    } catch (error) {
+        next(error)
+    }
 }
 
 const leadCreateValidate = commonValidate.validate(leadCreateSchema)

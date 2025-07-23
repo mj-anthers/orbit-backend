@@ -34,6 +34,7 @@ import { UserAddress } from './user-address.model.js'
 import { OrganizationAddress } from './organization-address.model.js'
 import { LeadProviderProgramCommissionEvent } from './lead-provider-program-commission-event.model.js'
 import { LeadCommissionEvent } from './lead-commission-event.model.js'
+import { Asset } from './asset.model.js'
 
 // Add models to sequelize instance (optional if already bound in each file)
 const models = {
@@ -81,6 +82,7 @@ export {
     UserAddress,
     LeadProviderProgramCommissionEvent,
     LeadCommissionEvent,
+    Asset,
     USER_TYPES,
     LEAD_PROVIDER_PROGRAM_BASE_RULE_ENUM,
     LeadProviderProgramCondition,

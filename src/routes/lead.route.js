@@ -9,9 +9,9 @@ const router = express.Router()
 router.post(
     '/',
     leadValidate.leadCreateValidate,
-    commonValidate.validatePostLeadProvider,
     leadValidate.leadCustomerValidate,
     leadValidate.leadSource,
+    commonValidate.validatePostLeadProvider,
     leadController.leadCreate
 )
 

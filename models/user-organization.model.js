@@ -19,10 +19,22 @@ const UserOrganization = sequelize.define(
         user: {
             type: DataTypes.UUID,
             allowNull: false,
+            references: {
+                model: 'users',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         organization: {
             type: DataTypes.UUID,
             allowNull: false,
+            references: {
+                model: 'organizations',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         userType: {
             type: DataTypes.ENUM(

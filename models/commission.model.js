@@ -31,6 +31,8 @@ const Commission = sequelize.define(
                 model: 'users',
                 key: 'id',
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         leadProvider: {
             type: DataTypes.UUID,
@@ -39,6 +41,8 @@ const Commission = sequelize.define(
                 model: 'leadProviders',
                 key: 'id',
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         lead: {
             type: DataTypes.UUID,
@@ -55,6 +59,8 @@ const Commission = sequelize.define(
                 model: 'leadProviderPrograms',
                 key: 'id',
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         organization: {
             type: DataTypes.UUID,
@@ -63,6 +69,8 @@ const Commission = sequelize.define(
                 model: 'organizations',
                 key: 'id',
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         amount: {
             type: DataTypes.FLOAT,

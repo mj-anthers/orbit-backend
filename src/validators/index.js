@@ -6,6 +6,7 @@ import leadValidate from './lead-validate.middleware.js'
 import organizationAddressValidate from './organization-address-validate.middleware.js'
 import userAddressValidate from './user-address-validate.middleware.js'
 import organizationValidate from './organization-validate.middleware.js'
+import assetValidate from './asset-validate.middleware.js'
 
 export {
     commonValidate,
@@ -16,4 +17,5 @@ export {
     organizationAddressValidate,
     userAddressValidate,
     organizationValidate,
+    assetValidate,
 }

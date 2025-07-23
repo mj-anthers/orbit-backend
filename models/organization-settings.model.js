@@ -15,6 +15,12 @@ const OrganizationSetting = sequelize.define(
         organization: {
             type: DataTypes.UUID,
             allowNull: false,
+            references: {
+                model: 'organizations',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         formData: {
             type: DataTypes.JSON,

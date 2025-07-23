@@ -1,30 +1,23 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '../config/db/database.js'
 
-const TABLE_NAME = 'customers'
-const MODEL_NAME = 'Customer'
+const TABLE_NAME = 'assets'
+const MODEL_NAME = 'Asset'
 
-const Customer = sequelize.define(
+const Asset = sequelize.define(
     MODEL_NAME,
     {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
-            allowNull: false,
         },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
-        phoneNumber: {
-            type: DataTypes.STRING,
-            allowNull: true,
+            validate: {
+                len: [2, 100],
+            },
         },
         organization: {
             type: DataTypes.UUID,
@@ -36,37 +29,40 @@ const Customer = sequelize.define(
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         },
+        createdBy: {
+            type: DataTypes.UUID,
+            allowNull: false,
+            references: {
+                model: 'users',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        },
+        url: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            required: true,
+        },
+        type: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            required: true,
+        },
         isActive: {
             type: DataTypes.BOOLEAN,
-            allowNull: false,
             defaultValue: true,
         },
         isDeleted: {
             type: DataTypes.BOOLEAN,
-            allowNull: false,
             defaultValue: false,
         },
     },
     {
-        sequelize,
-        modelName: MODEL_NAME,
         tableName: TABLE_NAME,
         timestamps: true,
+        underscored: true,
     }
 )
 
-Customer.associate = (models) => {
-    Customer.belongsTo(models.Organization, {
-        foreignKey: 'organization',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-    })
-
-    Customer.hasMany(models.Lead, {
-        foreignKey: 'customer',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-    })
-}
-
-export { Customer }
+export { Asset }

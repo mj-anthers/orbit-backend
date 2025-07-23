@@ -15,6 +15,7 @@ import organizationRoute from './organization.route.js'
 import { commissionService } from '../services/index.js'
 import httpStatus from 'http-status'
 import { consoleLog } from '../utils/index.js'
+import assetsRoutes from './asset.route.js'
 
 const router = Router()
 
@@ -54,5 +55,7 @@ router.get('/test/:id', async (req, res) => {
     })*/
     return res.status(200).json({})
 })
+
+router.use('/asset', authMiddleware, assetsRoutes)
 
 export default router

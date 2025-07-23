@@ -40,8 +40,14 @@ const LeadProviderProgram = sequelize.define(
             allowNull: false,
         },
         organization: {
-            type: DataTypes.STRING,
+            type: DataTypes.UUID,
             allowNull: false,
+            references: {
+                model: 'organizations',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         baseRule: {
             type: DataTypes.ENUM(
