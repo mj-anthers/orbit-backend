@@ -11,6 +11,7 @@ import leadRouter from './lead.route.js'
 import organizationAddressRoute from './organization-address.route.js'
 import userAddressRoute from './user-address.route.js'
 import callBackRoute from './callback.route.js'
+import organizationRoute from './organization.route.js'
 import { commissionService } from '../services/index.js'
 import httpStatus from 'http-status'
 import { consoleLog } from '../utils/index.js'
@@ -34,11 +35,15 @@ router.get('/', (req, res) => {
 router.get('/sample', asyncHandler(sampleController))
 
 router.use('/auth', authRoutes)
+
 router.use('/lead-provider', authMiddleware, leadProviderRouter)
-router.use('/organization-setting', authMiddleware, organizationSettingRoutes)
 router.use('/lead-provider-program', authMiddleware, leadProviderProgramRouter)
 router.use('/lead', authMiddleware, leadRouter)
+
+router.use('/organization', authMiddleware, organizationRoute)
+router.use('/organization-setting', authMiddleware, organizationSettingRoutes)
 router.use('/organization-address', authMiddleware, organizationAddressRoute)
+
 router.use('/user-address', authMiddleware, userAddressRoute)
 
 router.use('/callback', callBackRoute)
