@@ -1,10 +1,17 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '../config/db/database.js'
+import sequelizeCursorPaginate from 'sequelize-cursor-pagination'
 
 const TABLE_NAME = 'organizations'
+const MODEL_NAME = 'Organization'
+
+const ORGANIZATION_TYPES = {
+    PRODUCT: 'product',
+    SERVICE: 'service',
+}
 
 const Organization = sequelize.define(
-    'Organization',
+    MODEL_NAME,
     {
         id: {
             type: DataTypes.UUID,
@@ -15,13 +22,23 @@ const Organization = sequelize.define(
         user: {
             type: DataTypes.UUID,
             allowNull: false,
+            references: {
+                model: 'users',
+                key: 'id',
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
         },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: {
-                name: 'organizations_name_key', // Explicit constraint name
+                name: 'organizations_name_key',
             },
+        },
+        type: {
+            type: DataTypes.ENUM(...Object.values(ORGANIZATION_TYPES)),
+            allowNull: false,
         },
         isActive: {
             type: DataTypes.BOOLEAN,
@@ -34,7 +51,7 @@ const Organization = sequelize.define(
     },
     {
         sequelize,
-        modelName: 'Organization',
+        modelName: MODEL_NAME,
         tableName: TABLE_NAME,
         timestamps: true,
     }
@@ -72,6 +89,13 @@ Organization.associate = (models) => {
         as: 'organizationAddresses',
         onDelete: 'CASCADE',
     })
+    Organization.hasMany(models.Customer, {
+        foreignKey: 'organization',
+        as: 'organizationCustomerDatum',
+        onDelete: 'CASCADE',
+    })
 }
 
-export { Organization, TABLE_NAME }
+Organization.paginate = sequelizeCursorPaginate.makePaginate(Organization)
+
+export { Organization, TABLE_NAME, ORGANIZATION_TYPES }

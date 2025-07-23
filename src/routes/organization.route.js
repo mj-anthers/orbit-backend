@@ -9,27 +9,27 @@ const router = express.Router()
 router.post(
     '/',
     organizationValidate.organizationCreateValidate,
-    organizationController.create
+    organizationController.organizationCreate
 )
 
-router.get('/', defaultPagination, organizationController.list)
+router.get('/', defaultPagination, organizationController.organizationList)
 
 router.get(
     '/:id',
     organizationValidate.organizationIdValidate,
-    organizationController.details
+    organizationController.organizationDetails
 )
 
 router.put(
     '/:id',
     organizationValidate.organizationUpdateValidate,
-    organizationController.update
+    organizationController.organizationUpdate
 )
 
 router.delete(
     '/:id',
     organizationValidate.organizationIdValidate,
-    organizationController.delete
+    organizationController.organizationDelete
 )
 
 export default router

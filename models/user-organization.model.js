@@ -3,6 +3,11 @@ import sequelize from '../config/db/database.js'
 
 const TABLE_NAME = 'userOrganizations'
 
+const USER_ORGANIZATION_USER_TYPES = {
+    OWNER: 'owner',
+    USER: 'user',
+}
+
 const UserOrganization = sequelize.define(
     'UserOrganization',
     {
@@ -20,7 +25,9 @@ const UserOrganization = sequelize.define(
             allowNull: false,
         },
         userType: {
-            type: DataTypes.ENUM('owner', 'user'),
+            type: DataTypes.ENUM(
+                ...Object.values(USER_ORGANIZATION_USER_TYPES)
+            ),
             allowNull: false,
         },
         isActive: {
@@ -59,4 +66,4 @@ UserOrganization.associate = (models) => {
     })
 }
 
-export { UserOrganization, TABLE_NAME }
+export { UserOrganization, TABLE_NAME, USER_ORGANIZATION_USER_TYPES }

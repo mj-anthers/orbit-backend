@@ -4,14 +4,15 @@ import { throwSpecificError } from '../middlewares/error.js'
 import { organizationService } from '../services/index.js'
 
 export default {
-    create: asyncHandler(async (req, res) => {
+    organizationCreate: asyncHandler(async (req, res) => {
         try {
             return ResponseHandler.success(req, res, {
                 code: httpStatus.CREATED,
                 messageCode: 'ORGANIZATION_S1',
-                data: await organizationService.create(
-                    ...req.body,
-                ),
+                data: await organizationService.organizationCreate({
+                    user: req.user,
+                    body: req.body,
+                }),
             })
         } catch (error) {
             throwSpecificError(
@@ -22,9 +23,9 @@ export default {
         }
     }),
 
-    list: asyncHandler(async (req, res) => {
+    organizationList: asyncHandler(async (req, res) => {
         try {
-            const data = await organizationService.list({
+            const data = await organizationService.organizationList({
                 user: req.user,
                 ...req.pagination,
             })
@@ -42,9 +43,9 @@ export default {
         }
     }),
 
-    details: asyncHandler(async (req, res) => {
+    organizationDetails: asyncHandler(async (req, res) => {
         try {
-            const data = await organizationService.details({
+            const data = await organizationService.organizationDetails({
                 id: req.params.id,
                 user: req.user,
             })
@@ -62,11 +63,12 @@ export default {
         }
     }),
 
-    update: asyncHandler(async (req, res) => {
+    organizationUpdate: asyncHandler(async (req, res) => {
         try {
-            const data = await organizationService.update({
+            const data = await organizationService.organizationUpdate({
                 body: req.body,
                 id: req.params.id,
+                user: req.user,
             })
             return ResponseHandler.success(req, res, {
                 code: httpStatus.OK,
@@ -82,9 +84,9 @@ export default {
         }
     }),
 
-    delete: asyncHandler(async (req, res) => {
+    organizationDelete: asyncHandler(async (req, res) => {
         try {
-            const data = await organizationService.delete({
+            const data = await organizationService.organizationDelete({
                 id: req.params.id,
                 user: req.user,
             })

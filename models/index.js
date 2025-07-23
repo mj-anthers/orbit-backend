@@ -5,8 +5,11 @@ import { consoleLog } from '../src/utils/index.js'
 // Import model definition functions (not just their final output)
 import { ADDRESS_TYPE_ENUM } from './enum.js'
 import { User, USER_TYPES } from './user.model.js'
-import { Organization } from './organization.model.js'
-import { UserOrganization } from './user-organization.model.js'
+import { Organization, ORGANIZATION_TYPES } from './organization.model.js'
+import {
+    UserOrganization,
+    USER_ORGANIZATION_USER_TYPES,
+} from './user-organization.model.js'
 import { LeadProvider } from './lead-provider.model.js'
 import { OrganizationSetting } from './organization-settings.model.js'
 import { Customer } from './customer.model.js'
@@ -90,4 +93,6 @@ export {
     LEAD_SOURCE_ENUM,
     CREDIT_DEBIT_ENUM,
     ADDRESS_TYPE_ENUM,
+    USER_ORGANIZATION_USER_TYPES,
+    ORGANIZATION_TYPES,
 }

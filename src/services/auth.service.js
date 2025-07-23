@@ -576,7 +576,7 @@ export const authService = {
                     loginAt: Date.now(), // Prevent token replay attacks
                 },
                 process.env.JWT_SECRET,
-                { expiresIn: '15m' } // Short-lived base token for security
+                { expiresIn: process.env.JWT_EXPIRES_IN } // Short-lived base token for security
             )
 
             return {

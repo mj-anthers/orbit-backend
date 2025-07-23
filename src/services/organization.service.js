@@ -1,16 +1,42 @@
-import { throwSpecificError } from '../middlewares/error.js'
 import httpStatus from 'http-status'
-import { AppError, consoleLog } from '../utils/index.js'
+import { throwSpecificError } from '../middlewares/error.js'
+import { AppError } from '../utils/index.js'
 import {
     Organization,
+    UserOrganization,
+    USER_ORGANIZATION_USER_TYPES,
+    sequelize,
 } from '../../models/index.js'
 
 export default {
-    create: async (body) => {
+    organizationCreate: async ({ user, body }) => {
         try {
-            return await Organization.create(body)
+            return await sequelize.transaction(async (transaction) => {
+                const organizationDatum = await Organization.create(
+                    {
+                        ...body,
+                        user: user.id,
+                    },
+                    {
+                        transaction,
+                    }
+                )
+                await UserOrganization.create(
+                    {
+                        organization: organizationDatum.id,
+                        user: user.id,
+                        userType: USER_ORGANIZATION_USER_TYPES.OWNER,
+                    },
+                    {
+                        transaction,
+                    }
+                )
+                return {
+                    id: organizationDatum.id,
+                    name: organizationDatum.name,
+                }
+            })
         } catch (error) {
-            consoleLog(error)
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
@@ -18,10 +44,11 @@ export default {
             )
         }
     },
-    list: async ({ user, after, limit }) => {
+    organizationList: async ({ user, after, limit }) => {
         try {
             const paginationOptions = {
                 where: {
+                    user: user.id,
                     isDeleted: false,
                 },
                 order: [['createdAt', 'DESC']],
@@ -39,15 +66,17 @@ export default {
             )
         }
     },
-    details: async ({ id, user }) => {
+    organizationDetails: async ({ id, user }) => {
         try {
             const datum = await Organization.findOne({
                 where: {
                     id,
+                    user: user.id,
                     isDeleted: false,
                 },
             })
-            if (!datum) throw new AppError(httpStatus.NOT_FOUND, 'ORGANIZATION_E7')
+            if (!datum)
+                throw new AppError(httpStatus.NOT_FOUND, 'ORGANIZATION_E7')
 
             return datum
         } catch (error) {
@@ -58,26 +87,22 @@ export default {
             )
         }
     },
-    update: async ({
-                           id,
-                           body
-                       }) => {
+    organizationUpdate: async ({ id, body, user }) => {
         try {
             const [updated] = await Organization.update(
                 {
-                   ...body
+                    ...body,
                 },
                 {
                     where: {
                         id,
+                        user: user.id,
+                        isDeleted: false,
                     },
                 }
             )
             if (updated === 0)
-                throw new AppError(
-                    httpStatus.NOT_FOUND,
-                    'ORGANIZATION_E12'
-                )
+                throw new AppError(httpStatus.NOT_FOUND, 'ORGANIZATION_E12')
             return true
         } catch (error) {
             throwSpecificError(
@@ -87,7 +112,7 @@ export default {
             )
         }
     },
-    delete: async ({ id, user }) => {
+    organizationDelete: async ({ id, user }) => {
         try {
             const [updated] = await Organization.update(
                 {
@@ -97,15 +122,13 @@ export default {
                 {
                     where: {
                         id,
+                        user: user.id,
                         isDeleted: false,
                     },
                 }
             )
             if (updated === 0)
-                throw new AppError(
-                    httpStatus.NOT_FOUND,
-                    'ORGANIZATION_E13'
-                )
+                throw new AppError(httpStatus.NOT_FOUND, 'ORGANIZATION_E13')
             return true
         } catch (error) {
             throwSpecificError(
