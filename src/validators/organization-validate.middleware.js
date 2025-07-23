@@ -7,7 +7,9 @@ const organizationBaseSchema = Joi.object({
         'string.min': 'Name must be at least 2 characters',
         'string.max': 'Name cannot exceed 50 characters',
     }),
-    type: Joi.string().allow(...Object.values(ORGANIZATION_TYPES)),
+    type: Joi.string()
+        .valid(...Object.values(ORGANIZATION_TYPES))
+        .required(),
 })
 
 const organizationCreateSchema = {

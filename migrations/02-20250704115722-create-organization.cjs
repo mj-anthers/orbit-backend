@@ -2,6 +2,8 @@
 
 module.exports = {
     async up(queryInterface, Sequelize) {
+        await queryInterface.sequelize.query(`CREATE TYPE enum_organization_types AS ENUM ('product', 'service');`);
+
         await queryInterface.createTable('organizations', {
             id: {
                 type: Sequelize.UUID,
@@ -17,6 +19,10 @@ module.exports = {
                 },
                 onUpdate: 'CASCADE',
                 onDelete: 'CASCADE',
+            },
+            type: {
+                type: 'enum_organization_types',
+                allowNull: false,
             },
             name: {
                 type: Sequelize.STRING,
@@ -45,5 +51,8 @@ module.exports = {
 
     async down(queryInterface, Sequelize) {
         await queryInterface.dropTable('organizations')
+        await queryInterface.sequelize.query(
+            `DROP TYPE IF EXISTS "enum_organization_types";`
+        )
     },
 }

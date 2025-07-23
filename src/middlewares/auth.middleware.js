@@ -24,6 +24,8 @@ export const authMiddleware = async (req, res, next) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
+        consoleLog(decoded)
+
         const user = await User.findOne({
             where: {
                 id: decoded.user,
@@ -32,6 +34,7 @@ export const authMiddleware = async (req, res, next) => {
             include: [
                 {
                     model: UserOrganization,
+                    required: false,
                     where: { isActive: true },
                     as: 'userOrganizations',
                     include: [
@@ -44,6 +47,8 @@ export const authMiddleware = async (req, res, next) => {
                 },
             ],
         })
+
+        consoleLog(user)
 
         if (!user) {
             throw new AppError(httpStatus.UNAUTHORIZED, 'GLOBAL_E10')
