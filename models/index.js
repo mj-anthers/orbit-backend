@@ -35,6 +35,8 @@ import { OrganizationAddress } from './organization-address.model.js'
 import { LeadProviderProgramCommissionEvent } from './lead-provider-program-commission-event.model.js'
 import { LeadCommissionEvent } from './lead-commission-event.model.js'
 import { Asset } from './asset.model.js'
+import { LeadProviderMeta } from './lead-provider-meta.model.js'
+import { OrganizationMeta } from './organization-meta.model.js'
 
 // Add models to sequelize instance (optional if already bound in each file)
 const models = {
@@ -52,6 +54,8 @@ const models = {
     UserAddress,
     LeadProviderProgramCommissionEvent,
     LeadCommissionEvent,
+    LeadProviderMeta,
+    OrganizationMeta,
 }
 
 // Call associate for each model
@@ -83,6 +87,8 @@ export {
     LeadProviderProgramCommissionEvent,
     LeadCommissionEvent,
     Asset,
+    LeadProviderMeta,
+    OrganizationMeta,
     USER_TYPES,
     LEAD_PROVIDER_PROGRAM_BASE_RULE_ENUM,
     LeadProviderProgramCondition,

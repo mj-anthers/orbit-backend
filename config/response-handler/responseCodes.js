@@ -221,5 +221,13 @@ export default {
         ASSET_E12: 'Asset not found',
         ASSET_E13: 'Asset not found',
         ASSET_E14: 'No files were uploaded',
+
+        ORGANIZATION_META_S1: 'Organization meta updated successfully',
+        ORGANIZATION_META_E1: 'Organization meta failed to  update',
+        ORGANIZATION_META_E2: 'Organization meta failed to  update',
+
+        LEAD_PROVIDER_META_S1: 'Organization meta updated successfully',
+        LEAD_PROVIDER_META_E1: 'Organization meta failed to  update',
+        LEAD_PROVIDER_META_E2: 'Organization meta failed to  update',
     },
 }

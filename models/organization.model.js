@@ -57,12 +57,19 @@ const Organization = sequelize.define(
     }
 )
 
-Organization.addHook('afterCreate', async (org, options) => {
-    const { OrganizationSetting } = sequelize.models
+Organization.addHook('afterCreate', async (datum, options) => {
+    const { OrganizationSetting, OrganizationMeta } = sequelize.models
 
     await OrganizationSetting.create(
         {
-            organization: org.id,
+            organization: datum.id,
+        },
+        options.transaction ? { transaction: options.transaction } : {}
+    )
+
+    await OrganizationMeta.create(
+        {
+            organization: datum.id,
         },
         options.transaction ? { transaction: options.transaction } : {}
     )

@@ -83,6 +83,17 @@ const LeadProvider = sequelize.define(
     }
 )
 
+LeadProvider.addHook('afterCreate', async (datum, options) => {
+    const { LeadProviderMeta } = sequelize.models
+
+    await LeadProviderMeta.create(
+        {
+            leadProvider: datum.id,
+        },
+        options.transaction ? { transaction: options.transaction } : {}
+    )
+})
+
 LeadProvider.associate = (models) => {
     LeadProvider.belongsTo(models.Organization, {
         foreignKey: 'organization',

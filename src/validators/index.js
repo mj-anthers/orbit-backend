@@ -7,6 +7,8 @@ import organizationAddressValidate from './organization-address-validate.middlew
 import userAddressValidate from './user-address-validate.middleware.js'
 import organizationValidate from './organization-validate.middleware.js'
 import assetValidate from './asset-validate.middleware.js'
+import leadProviderMetaValidate from './lead-provider-meta.middleware.js'
+import organizationMetaValidate from './organization-meta.middleware.js'
 
 export {
     commonValidate,
@@ -18,4 +20,6 @@ export {
     userAddressValidate,
     organizationValidate,
     assetValidate,
+    leadProviderMetaValidate,
+    organizationMetaValidate,
 }

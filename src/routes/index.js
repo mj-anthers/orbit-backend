@@ -1,3 +1,4 @@
+import httpStatus from 'http-status'
 import { Router } from 'express'
 import { authMiddleware } from '../middlewares/auth.middleware.js'
 import sampleController from '../controllers/sample.controller.js'
@@ -13,9 +14,10 @@ import userAddressRoute from './user-address.route.js'
 import callBackRoute from './callback.route.js'
 import organizationRoute from './organization.route.js'
 import { commissionService } from '../services/index.js'
-import httpStatus from 'http-status'
-import { consoleLog } from '../utils/index.js'
-import assetsRoutes from './asset.route.js'
+
+import assetsRoute from './asset.route.js'
+import organizationMetaRoute from './organization-meta.route.js'
+import leadProviderMetaRoute from './lead-provider-meta.route.js'
 
 const router = Router()
 
@@ -56,6 +58,8 @@ router.get('/test/:id', async (req, res) => {
     return res.status(200).json({})
 })
 
-router.use('/asset', authMiddleware, assetsRoutes)
+router.use('/asset', authMiddleware, assetsRoute)
+router.use('/organization-meta', authMiddleware, organizationMetaRoute)
+router.use('/lead-provider-meta', authMiddleware, leadProviderMetaRoute)
 
 export default router

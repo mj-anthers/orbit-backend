@@ -7,6 +7,8 @@ import userAddressController from './user-address.controller.js'
 import callBackController from './callback.controller.js'
 import organizationController from './organization.controller.js'
 import assetController from './asset.controller.js'
+import leadProviderMetaController from './lead-provider-meta.controller.js'
+import organizationMetaController from './organization-meta.controller.js'
 
 export {
     leadProviderController,
@@ -18,4 +20,6 @@ export {
     callBackController,
     organizationController,
     assetController,
+    leadProviderMetaController,
+    organizationMetaController,
 }

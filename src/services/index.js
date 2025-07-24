@@ -8,6 +8,8 @@ import userAddressService from './user-address.service.js'
 import callBackService from './callback.service.js'
 import organizationService from './organization.service.js'
 import assetsService from './assets.service.js'
+import organizationMetaService from './organization-meta.service.js'
+import leadProviderMetaService from './lead-provider-meta.service.js'
 
 export {
     leadProviderService,
@@ -19,6 +21,7 @@ export {
     userAddressService,
     callBackService,
     organizationService,
-
     assetsService,
+    organizationMetaService,
+    leadProviderMetaService,
 }
