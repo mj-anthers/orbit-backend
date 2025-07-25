@@ -553,7 +553,6 @@ export const authService = {
 
             if (!user) throw new AppError(httpStatus.BAD_REQUEST, 'AUTH_E9')
 
-            // Update last login timestamp
             await User.update(
                 {
                     firstName,
@@ -567,16 +566,15 @@ export const authService = {
 
             await Redis.setUserSSOToken(email, session)
 
-            // SECURITY FIX: Generate base token with session info
             const baseToken = jwt.sign(
                 {
                     user: user.id,
                     email: user.email,
                     type: 'base',
-                    loginAt: Date.now(), // Prevent token replay attacks
+                    loginAt: Date.now(),
                 },
                 process.env.JWT_SECRET,
-                { expiresIn: process.env.JWT_EXPIRES_IN } // Short-lived base token for security
+                { expiresIn: process.env.JWT_EXPIRES_IN }
             )
 
             return {
@@ -587,7 +585,6 @@ export const authService = {
                     firstName: user.firstName,
                     lastName: user.lastName,
                 },
-                // SECURITY FIX: NO companies array - prevent information leakage
             }
         } catch (error) {
             throwSpecificError(

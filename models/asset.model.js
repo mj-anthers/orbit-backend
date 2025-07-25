@@ -1,5 +1,7 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '../config/db/database.js'
+import sequelizeCursorPaginate from 'sequelize-cursor-pagination'
+import { Lead } from './lead.model.js'
 
 const TABLE_NAME = 'assets'
 const MODEL_NAME = 'Asset'
@@ -61,8 +63,8 @@ const Asset = sequelize.define(
     {
         tableName: TABLE_NAME,
         timestamps: true,
-        underscored: true,
     }
 )
+Asset.paginate = sequelizeCursorPaginate.makePaginate(Asset)
 
 export { Asset }

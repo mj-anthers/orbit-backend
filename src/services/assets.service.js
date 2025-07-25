@@ -1,21 +1,24 @@
 import { throwSpecificError } from '../middlewares/error.js'
 import httpStatus from 'http-status'
-import { AppError } from '../utils/index.js'
+import { AppError, consoleLog } from '../utils/index.js'
 import { Asset } from '../../models/index.js'
 import { Op } from 'sequelize'
 
 export default {
-    assetCreate: async ({ files, organization, user }) => {
+    assetCreate: async ({ files, organization, user, name }) => {
         try {
+            consoleLog({
+                files,
+            })
             if (!files || files.length === 0) {
                 throw new AppError(httpStatus.BAD_REQUEST, 'ASSET_E14')
             }
             return await Promise.all(
                 files.map((file) =>
                     Asset.create({
-                        name: file.originalname,
-                        type: file.mimetype,
-                        url: file.location,
+                        name,
+                        type: file.type,
+                        url: file.Location,
                         organization,
                         createdBy: user.id, // if you have auth
                     })
@@ -25,7 +28,7 @@ export default {
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
-                'ASSETS_E2'
+                'ASSET_E2'
             )
         }
     },
@@ -49,7 +52,7 @@ export default {
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
-                'ASSETS_E4'
+                'ASSET_E4'
             )
         }
     },
@@ -64,14 +67,14 @@ export default {
                     },
                 },
             })
-            if (!datum) throw new AppError(httpStatus.NOT_FOUND, 'ASSETS_E7')
+            if (!datum) throw new AppError(httpStatus.NOT_FOUND, 'ASSET_E7')
 
             return datum
         } catch (error) {
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
-                'ASSETS_E6'
+                'ASSET_E6'
             )
         }
     },
@@ -91,13 +94,13 @@ export default {
                 }
             )
             if (updated === 0)
-                throw new AppError(httpStatus.NOT_FOUND, 'ASSETS_E12')
+                throw new AppError(httpStatus.NOT_FOUND, 'ASSET_E12')
             return true
         } catch (error) {
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
-                'ASSETS_E9'
+                'ASSET_E9'
             )
         }
     },
@@ -119,13 +122,13 @@ export default {
                 }
             )
             if (updated === 0)
-                throw new AppError(httpStatus.NOT_FOUND, 'ASSETS_E13')
+                throw new AppError(httpStatus.NOT_FOUND, 'ASSET_E13')
             return true
         } catch (error) {
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
-                'ASSETS_E11'
+                'ASSET_E11'
             )
         }
     },

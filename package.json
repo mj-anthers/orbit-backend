@@ -13,7 +13,10 @@
     "lint:fix": "eslint . --fix",
     "test": "mocha test/**/*.test.js --exit",
     "db:migrate": "sequelize-cli db:migrate",
-    "db:seed": "sequelize-cli db:seed:all"
+    "db:seed": "sequelize-cli db:seed:all",
+    "event:create": "node ./event/setup.js",
+    "event:register-rules": "node event/register-rules.js",
+    "event:register-targets": "node ./event/register-targets.js"
   },
   "keywords": [],
   "author": "",

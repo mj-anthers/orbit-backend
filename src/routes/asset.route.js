@@ -2,13 +2,15 @@ import express from 'express'
 import { assetValidate, commonValidate } from '../validators/index.js'
 
 import { assetController } from '../controllers/index.js'
-import { defaultPagination } from '../middlewares/index.js'
+import { defaultPagination, s3UploadMiddleware } from '../middlewares/index.js'
 
 const router = express.Router()
 
 router.post(
     '/',
-    assetValidate.assetsCreateValidate,
+    s3UploadMiddleware.uploadMultipleFiles,
+    s3UploadMiddleware.uploadFilesToS3,
+    assetValidate.assetsUploadValidate,
     commonValidate.validatePostUserOrganization,
     assetController.assetCreate
 )

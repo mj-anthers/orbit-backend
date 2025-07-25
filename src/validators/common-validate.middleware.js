@@ -10,6 +10,7 @@ import {
 } from '../../models/index.js'
 import { Op } from 'sequelize'
 import { COMMISSION_CALCULATION_TYPES } from '../../models/enum.js'
+import { throwSpecificError } from '../middlewares/error.js'
 
 const pick = (object, keys) => {
     return keys.reduce((obj, key) => {
@@ -311,6 +312,16 @@ const commissionItem = Joi.object({
         .required(),
 })
 
+const fileCheck = (req, res, next) => {
+    try {
+        if (req.files && req.files.length === 0)
+            throw new AppError(httpStatus.PRECONDITION_FAILED, 'ASSET_E15')
+        next()
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
     validate,
     validateUUID,
@@ -326,4 +337,5 @@ export default {
     validateParamLeadProvider,
     commissionItem,
     validateLeadProvider,
+    fileCheck,
 }

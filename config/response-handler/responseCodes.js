@@ -221,6 +221,8 @@ export default {
         ASSET_E12: 'Asset not found',
         ASSET_E13: 'Asset not found',
         ASSET_E14: 'No files were uploaded',
+        ASSET_E15: 'No files found for upload',
+        ASSET_E16: 'No files found for upload',
 
         ORGANIZATION_META_S1: 'Organization meta updated successfully',
         ORGANIZATION_META_E1: 'Organization meta failed to  update',

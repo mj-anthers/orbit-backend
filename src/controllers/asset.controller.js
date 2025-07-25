@@ -1,5 +1,5 @@
 import httpStatus from 'http-status'
-import { asyncHandler, ResponseHandler } from '../utils/index.js'
+import { asyncHandler, consoleLog, ResponseHandler } from '../utils/index.js'
 import { throwSpecificError } from '../middlewares/error.js'
 import { assetsService } from '../services/index.js'
 
@@ -8,18 +8,19 @@ export default {
         try {
             return ResponseHandler.success(req, res, {
                 code: httpStatus.CREATED,
-                messageCode: 'ASSETS_S1',
+                messageCode: 'ASSET_S1',
                 data: await assetsService.assetCreate({
-                    file: req.files,
+                    files: req.files,
                     organization: req.userOrganization.organization,
                     user: req.user,
+                    name: req.body.name,
                 }),
             })
         } catch (error) {
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
-                'ASSETS_E1'
+                'ASSET_E1'
             )
         }
     }),
@@ -32,14 +33,14 @@ export default {
             })
             return ResponseHandler.success(req, res, {
                 code: httpStatus.OK,
-                messageCode: 'ASSETS_S2',
+                messageCode: 'ASSET_S2',
                 data,
             })
         } catch (error) {
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
-                'ASSETS_E3'
+                'ASSET_E3'
             )
         }
     }),
@@ -52,14 +53,14 @@ export default {
             })
             return ResponseHandler.success(req, res, {
                 code: httpStatus.OK,
-                messageCode: 'ASSETS_S3',
+                messageCode: 'ASSET_S3',
                 data,
             })
         } catch (error) {
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
-                'ASSETS_E5'
+                'ASSET_E5'
             )
         }
     }),
@@ -73,14 +74,14 @@ export default {
             })
             return ResponseHandler.success(req, res, {
                 code: httpStatus.OK,
-                messageCode: 'ASSETS_S4',
+                messageCode: 'ASSET_S4',
                 data,
             })
         } catch (error) {
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
-                'ASSETS_E8'
+                'ASSET_E8'
             )
         }
     }),
@@ -93,14 +94,14 @@ export default {
             })
             return ResponseHandler.success(req, res, {
                 code: httpStatus.OK,
-                messageCode: 'ASSETS_S5',
+                messageCode: 'ASSET_S5',
                 data,
             })
         } catch (error) {
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
-                'ASSETS_E10'
+                'ASSET_E10'
             )
         }
     }),
