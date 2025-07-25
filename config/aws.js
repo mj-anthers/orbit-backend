@@ -1,7 +1,6 @@
 import AWS from 'aws-sdk'
-import { S3Client } from '@aws-sdk/client-s3'
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.SERVER_NAME === 'local') {
     AWS.config.credentials = new AWS.SharedIniFileCredentials({
         profile: process.env.AWS_PROFILE,
     })
