@@ -1,5 +1,5 @@
 import httpStatus from 'http-status'
-import { asyncHandler, consoleLog, ResponseHandler } from '../utils/index.js'
+import { asyncHandler, ResponseHandler } from '../utils/index.js'
 import { throwSpecificError } from '../middlewares/error.js'
 import { assetsService } from '../services/index.js'
 

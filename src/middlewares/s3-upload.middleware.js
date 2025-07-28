@@ -2,7 +2,7 @@ import path from 'path'
 import { v4 as uuidv4 } from 'uuid'
 import { s3 } from '../../config/aws.js'
 import multer from 'multer'
-import { consoleLog } from '../utils/index.js'
+import { PutObjectCommand } from '@aws-sdk/client-s3'
 
 const fileFilter = (req, file, cb) => {
     const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp']
@@ -10,7 +10,7 @@ const fileFilter = (req, file, cb) => {
 
     if (
         allowedMimeTypes.includes(file.mimetype) &&
-        ['.jpg', '.jpeg', '.png', '.webp', 'applo'].includes(ext)
+        ['.jpg', '.jpeg', '.png', '.webp', 'application/pdf'].includes(ext)
     ) {
         cb(null, true)
     } else {
@@ -31,17 +31,18 @@ const uploadFilesToS3 = async (req, res, next) => {
                 const ext = path.extname(file.originalname)
                 const key = `${uuidv4()}${ext}`
 
-                const result = await s3
-                    .upload({
+                const result = await s3.send(
+                    new PutObjectCommand({
                         Bucket: process.env.S3_BUCKET,
                         Key: key,
                         Body: file.buffer,
                         ContentType: file.mimetype,
                     })
-                    .promise()
+                )
                 return {
                     ...result,
                     type: file.mimetype,
+                    name: key,
                 }
             })
         )

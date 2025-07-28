@@ -7,22 +7,20 @@ import { Op } from 'sequelize'
 export default {
     assetCreate: async ({ files, organization, user, name }) => {
         try {
-            consoleLog({
-                files,
-            })
             if (!files || files.length === 0) {
                 throw new AppError(httpStatus.BAD_REQUEST, 'ASSET_E14')
             }
             return await Promise.all(
-                files.map((file) =>
-                    Asset.create({
+                files.map(async (file) => {
+                    consoleLog(file)
+                    return await Asset.create({
                         name,
                         type: file.type,
-                        url: file.Location,
+                        url: `${process.env.S3_URL}/${file.name}`,
                         organization,
                         createdBy: user.id, // if you have auth
                     })
-                )
+                })
             )
         } catch (error) {
             throwSpecificError(
