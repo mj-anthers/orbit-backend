@@ -5,26 +5,26 @@ import sequelize from '../config/db/database.js'
 const TABLE_NAME = 'leadProviderPrograms'
 const MODEL_NAME = 'LeadProviderProgram'
 
-const LEAD_PROVIDER_PROGRAM_BASE_RULE_ENUM = {
+const LEAD_PROVIDER_PROGRAM_BASE_RULE_ENUM = Object.freeze({
     ANY: 'any',
     ALL: 'all',
-}
+})
 
-const LEAD_PROVIDER_PROGRAM_TYPE_ENUM = {
+const LEAD_PROVIDER_PROGRAM_TYPE_ENUM = Object.freeze({
     FIXED: 'fixed',
     PERCENT: 'percent',
-}
+})
 
-const LEAD_PROVIDER_PROGRAM_COMMISSION_BASE_ENUM = {
+const LEAD_PROVIDER_PROGRAM_COMMISSION_BASE_ENUM = Object.freeze({
     NET_REVENUE: 'netRevenue',
     GROSS_REVENUE: 'grossRevenue',
-}
+})
 
-const LEAD_PROVIDER_PROGRAM_UNINSTALLATION_EVENT_ENUM = {
+const LEAD_PROVIDER_PROGRAM_UNINSTALLATION_EVENT_ENUM = Object.freeze({
     NEVER_EXPIRE: 'neverExpire',
     IMMEDIATE_EXPIRE: 'immediateExpire',
     DURATION_BASED_EXPIRE: 'durationBasedExpire',
-}
+})
 
 const LeadProviderProgram = sequelize.define(
     MODEL_NAME,

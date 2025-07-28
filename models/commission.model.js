@@ -4,15 +4,15 @@ import sequelize from '../config/db/database.js'
 const TABLE_NAME = 'commissions'
 const MODEL_NAME = 'Commission'
 
-const COMMISSION_TYPES = {
+const COMMISSION_TYPES = Object.freeze({
     RECURRING: 'recurring',
     ONE_TIME: 'oneTime',
-}
+})
 
-const CREDIT_DEBIT_ENUM = {
+const CREDIT_DEBIT_ENUM = Object.freeze({
     CREDIT: 'credit',
     DEBIT: 'debit',
-}
+})
 
 const Commission = sequelize.define(
     MODEL_NAME,

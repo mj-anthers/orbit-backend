@@ -5,7 +5,7 @@ import sequelize from '../config/db/database.js'
 const TABLE_NAME = 'leadProviderProgramConditions'
 const MODEL_NAME = 'leadProviderProgramConditions'
 
-const LEAD_PROVIDER_PROGRAM_CONDITION_OPERATOR_ENUM = {
+const LEAD_PROVIDER_PROGRAM_CONDITION_OPERATOR_ENUM = Object.freeze({
     IS: 'is',
     NOT: 'not',
     EQ: 'eq',
@@ -16,7 +16,7 @@ const LEAD_PROVIDER_PROGRAM_CONDITION_OPERATOR_ENUM = {
     LTE: 'lte',
     IN: 'in',
     NIN: 'nin',
-}
+})
 
 const LeadProviderProgramCondition = sequelize.define(
     MODEL_NAME,

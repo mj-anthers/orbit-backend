@@ -1,14 +1,6 @@
 import 'dotenv/config.js'
 import { S3Client } from '@aws-sdk/client-s3'
-import {
-    EventBridgeClient,
-    ListEventBusesCommand,
-    CreateEventBusCommand,
-    PutRuleCommand,
-    PutTargetsCommand,
-    PutEventsCommand,
-} from '@aws-sdk/client-eventbridge'
-import { SchedulerClient } from '@aws-sdk/client-scheduler'
+import { SNSClient, PublishCommand } from '@aws-sdk/client-sns'
 import { fromIni } from '@aws-sdk/credential-provider-ini'
 
 const sharedConfig = {
@@ -20,21 +12,7 @@ const sharedConfig = {
 }
 
 const s3 = new S3Client(sharedConfig)
-const EventBridge = new EventBridgeClient(sharedConfig)
-const Scheduler = new SchedulerClient(sharedConfig)
-const ListEventBus = ListEventBusesCommand
-const CreateEventBus = CreateEventBusCommand
-const PutRule = PutRuleCommand
-const PutTarget = PutTargetsCommand
-const PutEvent = PutEventsCommand
+const snsClient = new SNSClient(sharedConfig)
+const snsPublish = PublishCommand
 
-export {
-    s3,
-    EventBridge,
-    Scheduler,
-    ListEventBus,
-    CreateEventBus,
-    PutRule,
-    PutTarget,
-    PutEvent,
-}
+export { s3, snsClient, snsPublish }

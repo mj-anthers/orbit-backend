@@ -1,9 +1,9 @@
-const ADDRESS_TYPE_ENUM = {
+const ADDRESS_TYPE_ENUM = Object.freeze({
     PRIMARY: 'primary',
-}
-const COMMISSION_CALCULATION_TYPES = {
+})
+const COMMISSION_CALCULATION_TYPES = Object.freeze({
     FIXED: 'fixed',
     PERCENT: 'percent',
-}
+})
 
 export { ADDRESS_TYPE_ENUM, COMMISSION_CALCULATION_TYPES }

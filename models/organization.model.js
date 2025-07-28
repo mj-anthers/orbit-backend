@@ -5,10 +5,10 @@ import sequelizeCursorPaginate from 'sequelize-cursor-pagination'
 const TABLE_NAME = 'organizations'
 const MODEL_NAME = 'Organization'
 
-const ORGANIZATION_TYPES = {
+const ORGANIZATION_TYPES = Object.freeze({
     PRODUCT: 'product',
     SERVICE: 'service',
-}
+})
 
 const Organization = sequelize.define(
     MODEL_NAME,

@@ -9,17 +9,17 @@ import {
 const MODEL_NAME = 'Lead'
 const TABLE_NAME = 'leads'
 
-const LEAD_STATUS_ENUM = {
+const LEAD_STATUS_ENUM = Object.freeze({
     PENDING: 'pending',
     REJECTED: 'rejected',
     APPROVED: 'approved',
     LOST: 'lost',
-}
+})
 
-const LEAD_SOURCE_ENUM = {
+const LEAD_SOURCE_ENUM = Object.freeze({
     ORGANIZATION: 'organization',
     LEAD_PROVIDER: 'leadProvider',
-}
+})
 
 const Lead = sequelize.define(
     MODEL_NAME,

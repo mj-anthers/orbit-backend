@@ -19,6 +19,7 @@ import assetsRoute from './asset.route.js'
 import organizationMetaRoute from './organization-meta.route.js'
 import leadProviderMetaRoute from './lead-provider-meta.route.js'
 import event from '../../event/index.js'
+import EVENTS from '../../event/config.js'
 
 const router = Router()
 
@@ -54,9 +55,8 @@ router.use('/callback', callBackRoute)
 
 router.get('/test', async (req, res) => {
     await event.invokeEvent({
-        type: 'asset.create',
+        source: EVENTS.ASSET_CREATE,
         data: { id: 1, key: 2 },
-        events: ['asset', 'email'],
     })
     return res.status(200).json({})
 })

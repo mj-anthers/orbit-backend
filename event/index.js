@@ -1,38 +1,20 @@
 import { consoleLog } from '../src/utils/index.js'
-import { EventBridge, PutEvent } from '../config/aws/index.js'
+import { snsClient, snsPublish } from '../config/aws/index.js'
 
 export default {
-    invokeEvent: async ({ type, data, events }) => {
+    invokeEvent: async ({ source, data }) => {
         try {
-            const command = new PutEvent({
-                Entries: [
-                    {
-                        Source: process.env.APP_NAME,
-                        DetailType: type,
-                        Detail: JSON.stringify({
-                            ...data,
-                            events,
-                        }),
-                        EventBusName: process.env.EVENT_BUS_NAME,
-                        Time: new Date(),
+            const command = new snsPublish({
+                TopicArn: process.env.SNS_TOPIC,
+                Message: JSON.stringify(data),
+                MessageAttributes: {
+                    source: {
+                        DataType: 'String',
+                        StringValue: source,
                     },
-                ],
+                },
             })
-            consoleLog({
-                Entries: [
-                    {
-                        Source: process.env.APP_NAME,
-                        DetailType: type,
-                        Detail: JSON.stringify({
-                            ...data,
-                            events,
-                        }),
-                        EventBusName: process.env.EVENT_BUS_NAME,
-                        Time: new Date(),
-                    },
-                ],
-            })
-            const response = await EventBridge.send(command)
+            const response = await snsClient.send(command)
             consoleLog('Event sent:', JSON.stringify(response, null, 2))
             consoleLog('Event data:', JSON.stringify(data, null, 2))
         } catch (error) {
