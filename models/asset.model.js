@@ -1,7 +1,6 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '../config/db/database.js'
 import sequelizeCursorPaginate from 'sequelize-cursor-pagination'
-import { Lead } from './lead.model.js'
 
 const TABLE_NAME = 'assets'
 const MODEL_NAME = 'Asset'

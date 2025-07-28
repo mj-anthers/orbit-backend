@@ -1,6 +1,6 @@
 import path from 'path'
 import { v4 as uuidv4 } from 'uuid'
-import { s3 } from '../../config/aws.js'
+import { s3 } from '../../config/aws/index.js'
 import multer from 'multer'
 import { PutObjectCommand } from '@aws-sdk/client-s3'
 

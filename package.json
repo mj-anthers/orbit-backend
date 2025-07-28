@@ -14,9 +14,9 @@
     "test": "mocha test/**/*.test.js --exit",
     "db:migrate": "sequelize-cli db:migrate",
     "db:seed": "sequelize-cli db:seed:all",
-    "event:create": "node ./event/setup.js",
-    "event:register-rules": "node event/register-rules.js",
-    "event:register-targets": "node ./event/register-targets.js"
+    "event:create": "node config/event/setup.js",
+    "event:register-rules": "node config/event/register-rules.js",
+    "event:register-targets": "node config/event/register-targets.js"
   },
   "keywords": [],
   "author": "",
@@ -28,7 +28,7 @@
     "@aws-sdk/client-s3": "^3.850.0",
     "@aws-sdk/client-scheduler": "^3.848.0",
     "@aws-sdk/credential-provider-ini": "^3.848.0",
-    "axios": "^1.10.0",
+    "axios": "^1.11.0",
     "axios-logger": "^2.8.1",
     "bcrypt": "^6.0.0",
     "compression": "^1.8.0",

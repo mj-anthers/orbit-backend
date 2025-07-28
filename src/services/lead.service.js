@@ -14,6 +14,7 @@ import {
 } from '../../models/index.js'
 import { Op } from 'sequelize'
 import RuleEngine from '../helpers/rule-engine/RuleEngine.js'
+import event from '../../event/index.js'
 
 export default {
     leadCreate: async ({
