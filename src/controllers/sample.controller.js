@@ -1,7 +1,7 @@
 import ResponseHandler from '../utils/response-handler.js'
 import httpStatus from 'http-status'
 import { asyncHandler } from '../utils/index.js'
-import { throwSpecificError } from '../middlewares/error.js'
+import { throwSpecificError } from '../middlewares/index.js'
 
 const sampleController = asyncHandler(async (req, res) => {
     try {

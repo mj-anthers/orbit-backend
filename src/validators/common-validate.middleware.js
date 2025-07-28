@@ -10,7 +10,7 @@ import {
 } from '../../models/index.js'
 import { Op } from 'sequelize'
 import { COMMISSION_CALCULATION_TYPES } from '../../models/enum.js'
-import { throwSpecificError } from '../middlewares/error.js'
+import { throwSpecificError } from '../middlewares/index.js'
 
 const pick = (object, keys) => {
     return keys.reduce((obj, key) => {

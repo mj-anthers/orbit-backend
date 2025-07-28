@@ -18,6 +18,7 @@ import { commissionService } from '../services/index.js'
 import assetsRoute from './asset.route.js'
 import organizationMetaRoute from './organization-meta.route.js'
 import leadProviderMetaRoute from './lead-provider-meta.route.js'
+import event from '../../event/index.js'
 
 const router = Router()
 
@@ -51,10 +52,12 @@ router.use('/user-address', authMiddleware, userAddressRoute)
 
 router.use('/callback', callBackRoute)
 
-router.get('/test/:id', async (req, res) => {
-    /*const datum = await commissionService.disperseCommission({
-        lead: req.params.id,
-    })*/
+router.get('/test', async (req, res) => {
+    await event.invokeEvent({
+        type: 'asset.create',
+        data: { id: 1, key: 2 },
+        events: ['asset', 'email'],
+    })
     return res.status(200).json({})
 })
 

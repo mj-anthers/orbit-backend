@@ -1,6 +1,6 @@
 import httpStatus from 'http-status'
 import { asyncHandler, ResponseHandler } from '../utils/index.js'
-import { throwSpecificError } from '../middlewares/error.js'
+import { throwSpecificError } from '../middlewares/index.js'
 import { assetsService } from '../services/index.js'
 
 export default {

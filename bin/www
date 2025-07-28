@@ -8,7 +8,7 @@ import debug0 from 'debug'
 import sequelize from '../config/db/database.js'
 
 import { AppError, appLogger } from '../src/utils/index.js'
-import { errorConverter, errorHandler } from '../src/middlewares/error.js'
+import { errorConverter, errorHandler } from '../src/middlewares/index.js'
 
 const debug = debug0(`${process.env.APP_NAME}:${process.env.NODE_ENV}`)
 const port = normalizePort(process.env.PORT || '3000')

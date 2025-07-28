@@ -1,5 +1,5 @@
 import { asyncHandler, ResponseHandler } from '../utils/index.js'
-import { throwSpecificError } from '../middlewares/error.js'
+import { throwSpecificError } from '../middlewares/index.js'
 import httpStatus from 'http-status'
 import { callBackService } from '../services/index.js'
 

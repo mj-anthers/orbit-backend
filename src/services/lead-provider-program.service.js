@@ -1,6 +1,6 @@
 import { Op } from 'sequelize'
 import httpStatus from 'http-status'
-import { throwSpecificError } from '../middlewares/error.js'
+import { throwSpecificError } from '../middlewares/index.js'
 import { AppError } from '../utils/index.js'
 import {
     LeadProviderProgram,

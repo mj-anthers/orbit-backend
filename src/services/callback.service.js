@@ -1,5 +1,5 @@
 import httpStatus from 'http-status'
-import { throwSpecificError } from '../middlewares/error.js'
+import { throwSpecificError } from '../middlewares/index.js'
 import Identity from '../helpers/identity.js'
 import { User } from '../../models/index.js'
 import { authService } from './auth.service.js'

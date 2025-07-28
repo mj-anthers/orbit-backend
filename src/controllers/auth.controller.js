@@ -1,7 +1,7 @@
 import { sequelize } from '../../models/index.js'
 import { authService } from '../services/auth.service.js'
 import ResponseHandler from '../utils/response-handler.js'
-import { throwSpecificError } from '../middlewares/error.js'
+import { throwSpecificError } from '../middlewares/index.js'
 import httpStatus from 'http-status'
 import { asyncHandler } from '../utils/index.js'
 

@@ -1,7 +1,7 @@
 import httpStatus from 'http-status'
 import { asyncHandler, ResponseHandler } from '../utils/index.js'
 import { organizationMetaService } from '../services/index.js'
-import { throwSpecificError } from '../middlewares/error.js'
+import { throwSpecificError } from '../middlewares/index.js'
 
 export default {
     organizationMetaUpdate: asyncHandler(async (req, res) => {

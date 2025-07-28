@@ -1,9 +1,8 @@
-import { throwSpecificError } from '../middlewares/error.js'
+import { throwSpecificError } from '../middlewares/index.js'
 import httpStatus from 'http-status'
 import { AppError } from '../utils/index.js'
 import { Asset } from '../../models/index.js'
 import { Op } from 'sequelize'
-import event from '../../event/index.js'
 
 export default {
     assetCreate: async ({ files, organization, user, name }) => {
@@ -14,18 +13,13 @@ export default {
 
             return await Promise.all(
                 files.map(async (file) => {
-                    const assetDatum = await Asset.create({
+                    return await Asset.create({
                         name,
                         type: file.type,
                         url: `${process.env.S3_URL}/${file.name}`,
                         organization,
                         createdBy: user.id,
                     })
-                    await event.invokeEvent({
-                        type: 'asset.create',
-                        data: assetDatum.dataValues,
-                    })
-                    return assetDatum
                 })
             )
         } catch (error) {

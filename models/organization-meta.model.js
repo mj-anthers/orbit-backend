@@ -45,4 +45,12 @@ const OrganizationMeta = sequelize.define(
     }
 )
 
+OrganizationMeta.associate = (models) => {
+    OrganizationMeta.belongsTo(models.Organization, {
+        foreignKey: 'organization',
+        as: 'organizationDatum',
+        onDelete: 'CASCADE',
+    })
+}
+
 export { OrganizationMeta }

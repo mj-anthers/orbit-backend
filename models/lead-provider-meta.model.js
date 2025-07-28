@@ -1,6 +1,7 @@
 // models/LeadProviderMeta.js
 import { DataTypes } from 'sequelize'
 import sequelize from '../config/db/database.js'
+import { Lead } from './lead.model.js'
 
 const MODEL_NAME = 'LeadProviderMeta'
 const TABLE_NAME = 'leadProviderMeta'
@@ -44,5 +45,13 @@ const LeadProviderMeta = sequelize.define(
         timestamps: true,
     }
 )
+
+LeadProviderMeta.associate = (models) => {
+    LeadProviderMeta.belongsTo(models.LeadProvider, {
+        foreignKey: 'leadProvider',
+        as: 'leadProviderDatum',
+        onDelete: 'CASCADE',
+    })
+}
 
 export { LeadProviderMeta }

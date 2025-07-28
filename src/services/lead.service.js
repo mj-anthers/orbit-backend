@@ -1,4 +1,4 @@
-import { throwSpecificError } from '../middlewares/error.js'
+import { throwSpecificError } from '../middlewares/index.js'
 import httpStatus from 'http-status'
 import { AppError, consoleLog } from '../utils/index.js'
 import {
