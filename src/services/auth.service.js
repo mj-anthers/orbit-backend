@@ -597,7 +597,6 @@ export const authService = {
 
     async signUp({ firstName, lastName, email, session }) {
         try {
-            // Auto-detect if user exists by checking email in database
             const existingUser = await User.findOne({
                 where: { email, isActive: true },
             })
