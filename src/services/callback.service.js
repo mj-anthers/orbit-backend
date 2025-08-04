@@ -20,9 +20,11 @@ export default {
                 },
             })
 
-            existingUser.firstName = userDatum.firstName
-            existingUser.lastName = userDatum.lastName
-            await existingUser.save()
+            if (existingUser) {
+                existingUser.firstName = userDatum.firstName
+                existingUser.lastName = userDatum.lastName
+                await existingUser.save()
+            }
 
             return existingUser
                 ? authService.login({ ...userDatum, email, session })
