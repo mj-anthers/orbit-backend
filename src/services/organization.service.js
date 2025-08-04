@@ -52,6 +52,16 @@ export default {
                     isDeleted: false,
                 },
                 order: [['createdAt', 'DESC']],
+                include: [
+                    {
+                        model: UserOrganization.scope({
+                            method: ['forUser', user.id],
+                        }),
+                        as: 'userOrganizationDatum',
+                        attributes: ['id', 'user', 'organization', 'userType'],
+                        required: false,
+                    },
+                ],
                 limit,
             }
             if (after) {

@@ -78,4 +78,12 @@ UserOrganization.associate = (models) => {
     })
 }
 
+UserOrganization.addScope('forUser', (user) => ({
+    where: {
+        user,
+        isActive: true,
+        isDeleted: false,
+    },
+}))
+
 export { UserOrganization, TABLE_NAME, USER_ORGANIZATION_USER_TYPES }

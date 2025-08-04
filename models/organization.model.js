@@ -81,6 +81,10 @@ Organization.associate = (models) => {
         as: 'userOrganizations',
         onDelete: 'CASCADE',
     })
+    Organization.hasOne(models.UserOrganization, {
+        foreignKey: 'organization',
+        as: 'userOrganizationDatum',
+    })
     Organization.belongsTo(models.User, {
         foreignKey: 'user',
         as: 'userDatum',
