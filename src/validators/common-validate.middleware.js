@@ -267,6 +267,9 @@ const validateLeadProvider = asyncHandler(
             if (!leadProviderDatum)
                 throw new AppError(httpStatus.UNAUTHORIZED, 'GLOBAL_E20')
             req.leadProvider = leadProviderDatum
+            consoleLog({
+                leadProviderDatum,
+            })
             next()
         } catch (error) {
             next(error)

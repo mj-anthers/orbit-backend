@@ -6,9 +6,10 @@ import {
     LEAD_STATUS_ENUM,
     LeadProvider,
     LeadProviderProgram,
+    User,
 } from '../../models/index.js'
 import httpStatus from 'http-status'
-import { AppError } from '../utils/index.js'
+import { AppError, consoleLog } from '../utils/index.js'
 
 const customerBaseSchema = Joi.object({
     name: Joi.string().trim().min(2).max(50).required().messages({
@@ -68,6 +69,9 @@ const leadUpdateSchema = {
 
 const leadCustomerValidate = async (req, res, next) => {
     try {
+        consoleLog({
+            data: req.leadProvider.organization,
+        })
         const [record] = await Customer.findOrCreate({
             where: {
                 email: req.body.customer.email,
@@ -83,6 +87,7 @@ const leadCustomerValidate = async (req, res, next) => {
         req.leadCustomer = record
         next()
     } catch (error) {
+        consoleLog(error)
         next(error)
     }
 }
@@ -94,7 +99,16 @@ const leadSource = async (req, res, next) => {
                 id: req.body.leadProvider,
                 isDeleted: false,
             },
+            include: [
+                {
+                    model: User,
+                    as: 'userLeadProviderDatum',
+                    attributes: ['id', 'email'],
+                },
+            ],
         })
+
+        if (!leadProvider) throw new AppError(httpStatus.NOT_FOUND, 'LEAD_E17')
 
         const leadProviderProgramDatum = await LeadProviderProgram.findOne({
             where: {

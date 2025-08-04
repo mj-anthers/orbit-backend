@@ -134,6 +134,7 @@ export default {
         LEAD_E14: 'Lead failed to validate',
         LEAD_E15: "Lead provider program doesn't belong to the organization",
         LEAD_E16: "Lead provider program doesn't belong to the user",
+        LEAD_E17: 'Lead not found!',
 
         ORGANIZATION_ADDRESS_S1: 'Organization address created successfully',
         ORGANIZATION_ADDRESS_S2: 'Organization address listed successfully',
