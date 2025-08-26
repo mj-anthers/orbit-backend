@@ -142,7 +142,7 @@ export default {
             if (!leadProviderDatum)
                 throw new AppError(httpStatus.NOT_FOUND, 'LEAD_PROVIDER_E15')
 
-            return { ...leadProviderDatum, metrics }
+            return { leadProviderDatum, metrics }
         } catch (error) {
             throwSpecificError(
                 error,

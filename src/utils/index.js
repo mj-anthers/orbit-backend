@@ -8,6 +8,7 @@ import {
 import asyncHandler from './async-handler.js'
 import ResponseHandler from './response-handler.js'
 import { hashPassword, comparePasswords } from './hash.js'
+import paginationFilter from './pagination-filter.js'
 
 export {
     AppError,
@@ -19,4 +20,5 @@ export {
     consoleLog,
     hashPassword,
     comparePasswords,
+    paginationFilter,
 }

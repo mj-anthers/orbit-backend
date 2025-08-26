@@ -44,6 +44,7 @@ export default {
 
             return {
                 ...userDatum.user,
+                token: userDatum.token,
                 sessionSwitchToken: identityUserDatum.sessionSwitchToken,
             }
         } catch (error) {

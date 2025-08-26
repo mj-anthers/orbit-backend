@@ -1,6 +1,6 @@
 import { throwSpecificError } from '../middlewares/index.js'
 import httpStatus from 'http-status'
-import { AppError, consoleLog } from '../utils/index.js'
+import { AppError, consoleLog, paginationFilter } from '../utils/index.js'
 import {
     Lead,
     LEAD_STATUS_ENUM,
@@ -136,17 +136,9 @@ export default {
     },
     leadList: async ({ user, after, limit, query }) => {
         try {
-            const where = {
-                organization: {
-                    [Op.in]: user.organizationIds,
-                },
-            }
-            const { leadProviders } = query
-
-            if (leadProviders) {
-                where['leadProvider'] = {
-                    [Op.in]: leadProviders,
-                }
+            const where = paginationFilter.parseSequelizeWhere(query)
+            where['organization'] = {
+                [Op.in]: user.organizationIds,
             }
 
             const paginationOptions = {
