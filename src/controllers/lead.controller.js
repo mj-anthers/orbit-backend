@@ -30,6 +30,7 @@ export default {
         try {
             const data = await leadService.leadList({
                 user: req.user,
+                query: req.query,
                 ...req.pagination,
             })
             return ResponseHandler.success(req, res, {

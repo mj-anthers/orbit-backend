@@ -54,6 +54,10 @@ const validateUUID = Joi.string()
         'string.base': 'The Id must be a string',
     })
 
+const validateUUIDNonRequired = Joi.string()
+    .guid({ version: ['uuidv4'] })
+    .optional()
+
 const validateEmail = Joi.string().email().required().messages({
     'string.email': 'Please provide a valid email address',
 })
@@ -341,4 +345,5 @@ export default {
     commissionItem,
     validateLeadProvider,
     fileCheck,
+    validateUUIDNonRequired,
 }

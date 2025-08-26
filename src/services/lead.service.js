@@ -14,7 +14,6 @@ import {
 } from '../../models/index.js'
 import { Op } from 'sequelize'
 import RuleEngine from '../helpers/rule-engine/RuleEngine.js'
-import event from '../../event/index.js'
 
 export default {
     leadCreate: async ({
@@ -135,15 +134,23 @@ export default {
             )
         }
     },
-    leadList: async ({ user, after, limit }) => {
+    leadList: async ({ user, after, limit, query }) => {
         try {
-            const paginationOptions = {
-                where: {
-                    organization: {
-                        [Op.in]: user.organizationIds,
-                    },
-                    isDeleted: false,
+            const where = {
+                organization: {
+                    [Op.in]: user.organizationIds,
                 },
+            }
+            const { leadProviders } = query
+
+            if (leadProviders) {
+                where['leadProvider'] = {
+                    [Op.in]: leadProviders,
+                }
+            }
+
+            const paginationOptions = {
+                where,
                 order: [['createdAt', 'DESC']],
                 limit,
                 include: [

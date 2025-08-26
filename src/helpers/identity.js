@@ -1,6 +1,6 @@
 import axios from 'axios'
+import crypto from 'crypto'
 import { requestLogger, responseLogger, errorLogger } from 'axios-logger'
-import { signUUID } from '../utils/index.js'
 
 class IdentityClient {
     headers = {
@@ -18,6 +18,13 @@ class IdentityClient {
         this.client.interceptors.response.use(responseLogger, errorLogger)
     }
 
+    signUUID = (uuid) => {
+        return crypto
+            .createHmac('sha256', process.env.IDENTITY_SECRET)
+            .update(uuid, 'utf8')
+            .digest('hex')
+    }
+
     ssoRedirectToken = async (email) => {
         const response = await this.client.post('/sso/link', {
             email,
@@ -30,7 +37,7 @@ class IdentityClient {
         const response = await this.client.get('/user', {
             headers: {
                 ...this.headers,
-                'x-identity-user-token': signUUID(token),
+                'x-identity-user-token': this.signUUID(token),
             },
         })
         return response.data

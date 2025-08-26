@@ -31,6 +31,15 @@ class RedisClient {
             return null
         }
     }
+
+    async setIdentityUserToken(key, value) {
+        const args = [`Identity-Token-${key}`, value]
+        return this.redis.set(...args)
+    }
+
+    async getIdentityUserToken(key) {
+        return this.redis.get(`SSO-TOKEN-${key}`)
+    }
 }
 
 const redisInstance = new RedisClient()

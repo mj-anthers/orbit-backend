@@ -131,10 +131,18 @@ export default {
                     },
                 ],
             })
+
+            const metrics = {
+                referralRevenue: 23,
+                numberOfReferrals: 0,
+                payoutsProcessed: 12,
+                pendingPayouts: 23,
+            }
+
             if (!leadProviderDatum)
                 throw new AppError(httpStatus.NOT_FOUND, 'LEAD_PROVIDER_E15')
 
-            return leadProviderDatum
+            return { ...leadProviderDatum, metrics }
         } catch (error) {
             throwSpecificError(
                 error,

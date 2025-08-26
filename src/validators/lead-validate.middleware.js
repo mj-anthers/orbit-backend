@@ -143,6 +143,12 @@ const leadSource = async (req, res, next) => {
     }
 }
 
+const leadListingSchema = {
+    query: Joi.object({
+        leadProviders: commonValidate.validateUUIDNonRequired,
+    }),
+}
+
 const leadCreateValidate = commonValidate.validate(leadCreateSchema)
 const leadIdValidate = commonValidate.validate(leadIdSchema)
 const leadUpdateValidate = commonValidate.validate(leadUpdateSchema)
@@ -158,4 +164,5 @@ export default {
     leadUpdateValidate,
     leadCustomerValidate,
     leadSource,
+    leadListingSchema,
 }

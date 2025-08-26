@@ -36,6 +36,18 @@ const Organization = sequelize.define(
                 name: 'organizations_name_key',
             },
         },
+        /*websiteURL: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        supportEmail: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        timezone: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },*/
         type: {
             type: DataTypes.ENUM(...Object.values(ORGANIZATION_TYPES)),
             allowNull: false,

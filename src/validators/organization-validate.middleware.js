@@ -10,6 +10,9 @@ const organizationBaseSchema = Joi.object({
     type: Joi.string()
         .valid(...Object.values(ORGANIZATION_TYPES))
         .required(),
+    websiteURL: Joi.string().optional(),
+    supportEmail: Joi.string().email().optional(),
+    timezone: Joi.string().optional(),
 })
 
 const organizationCreateSchema = {

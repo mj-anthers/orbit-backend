@@ -10,7 +10,14 @@ const fileFilter = (req, file, cb) => {
 
     if (
         allowedMimeTypes.includes(file.mimetype) &&
-        ['.jpg', '.jpeg', '.png', '.webp', 'application/pdf'].includes(ext)
+        [
+            '.jpg',
+            '.jpeg',
+            '.png',
+            '.webp',
+            'application/pdf',
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        ].includes(ext)
     ) {
         cb(null, true)
     } else {

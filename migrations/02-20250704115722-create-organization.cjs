@@ -28,6 +28,18 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
+            websiteURL: {
+                type: Sequelize.STRING,
+                allowNull: true,
+            },
+            supportEmail: {
+                type: Sequelize.STRING,
+                allowNull: true,
+            },
+            timezone: {
+                type: Sequelize.STRING,
+                allowNull: true,
+            },
             isActive: {
                 type: Sequelize.BOOLEAN,
                 defaultValue: true,

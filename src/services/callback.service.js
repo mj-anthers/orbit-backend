@@ -4,6 +4,7 @@ import Identity from '../helpers/identity.js'
 import { User } from '../../models/index.js'
 import { authService } from './auth.service.js'
 import { consoleLog } from '../utils/index.js'
+import Redis from '../../redis/index.js'
 
 export default {
     identitySSOLogin: async ({ session }) => {
@@ -11,8 +12,10 @@ export default {
             const identity = new Identity()
             const identityData = await identity.userDetails(session)
 
-            const userDatum = identityData.data
+            const identityUserDatum = identityData.data
             const email = identityData.data.email
+
+            await Redis.setIdentityUserToken(email, session)
 
             const existingUser = await User.findOne({
                 where: {
@@ -21,19 +24,28 @@ export default {
             })
 
             if (existingUser) {
-                existingUser.firstName = userDatum.firstName
-                existingUser.lastName = userDatum.lastName
+                existingUser.firstName = identityUserDatum.firstName
+                existingUser.lastName = identityUserDatum.lastName
                 await existingUser.save()
             }
 
-            return existingUser
-                ? authService.login({ ...userDatum, email, session })
-                : authService.signUp({
-                      firstName: userDatum.firstName,
-                      lastName: userDatum.lastName,
+            const userDatum = existingUser
+                ? await authService.login({
+                      ...identityUserDatum,
                       email,
                       session,
                   })
+                : await authService.signUp({
+                      firstName: identityUserDatum.firstName,
+                      lastName: identityUserDatum.lastName,
+                      email,
+                      session,
+                  })
+
+            return {
+                ...userDatum.user,
+                sessionSwitchToken: identityUserDatum.sessionSwitchToken,
+            }
         } catch (error) {
             consoleLog(error)
             throwSpecificError(
