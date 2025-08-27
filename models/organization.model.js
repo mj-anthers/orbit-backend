@@ -36,7 +36,7 @@ const Organization = sequelize.define(
                 name: 'organizations_name_key',
             },
         },
-        /*websiteURL: {
+        websiteURL: {
             type: DataTypes.STRING,
             allowNull: true,
         },
@@ -47,7 +47,7 @@ const Organization = sequelize.define(
         timezone: {
             type: DataTypes.STRING,
             allowNull: true,
-        },*/
+        },
         type: {
             type: DataTypes.ENUM(...Object.values(ORGANIZATION_TYPES)),
             allowNull: false,
