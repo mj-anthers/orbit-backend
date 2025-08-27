@@ -32,18 +32,42 @@ const Lead = sequelize.define(
         leadProvider: {
             type: DataTypes.UUID,
             allowNull: false,
+            references: {
+                model: 'leadProviders',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         user: {
             type: DataTypes.UUID,
             allowNull: false,
+            references: {
+                model: 'users',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         leadProviderProgram: {
             type: DataTypes.UUID,
             allowNull: false,
+            references: {
+                model: 'leadProviderProgrammes',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         organization: {
             type: DataTypes.UUID,
             allowNull: false,
+            references: {
+                model: 'organizations',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         customer: {
             type: DataTypes.UUID,

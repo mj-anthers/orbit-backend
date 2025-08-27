@@ -10,6 +10,7 @@ import organizationService from './organization.service.js'
 import assetsService from './assets.service.js'
 import organizationMetaService from './organization-meta.service.js'
 import leadProviderMetaService from './lead-provider-meta.service.js'
+import notificationService from './notification.service.js'
 
 export {
     leadProviderService,
@@ -24,4 +25,6 @@ export {
     assetsService,
     organizationMetaService,
     leadProviderMetaService,
+
+    notificationService,
 }

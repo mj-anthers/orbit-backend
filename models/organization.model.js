@@ -114,7 +114,12 @@ Organization.associate = (models) => {
     })
     Organization.hasMany(models.Customer, {
         foreignKey: 'organization',
-        as: 'organizationCustomerDatum',
+        as: 'organizationCustomers',
+        onDelete: 'CASCADE',
+    })
+    Organization.hasMany(models.Notification, {
+        foreignKey: 'organization',
+        as: 'organizationNotifications',
         onDelete: 'CASCADE',
     })
 }

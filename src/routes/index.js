@@ -1,4 +1,6 @@
 import httpStatus from 'http-status'
+import event from '../../event/index.js'
+import EVENTS from '../../event/config.js'
 import { Router } from 'express'
 import { authMiddleware } from '../middlewares/auth.middleware.js'
 import sampleController from '../controllers/sample.controller.js'
@@ -13,12 +15,10 @@ import organizationAddressRoute from './organization-address.route.js'
 import userAddressRoute from './user-address.route.js'
 import callBackRoute from './callback.route.js'
 import organizationRoute from './organization.route.js'
-
 import assetsRoute from './asset.route.js'
 import organizationMetaRoute from './organization-meta.route.js'
 import leadProviderMetaRoute from './lead-provider-meta.route.js'
-import event from '../../event/index.js'
-import EVENTS from '../../event/config.js'
+import notificationRoutes from './notification.route.js'
 
 const router = Router()
 
@@ -49,7 +49,11 @@ router.use('/organization-address', authMiddleware, organizationAddressRoute)
 router.use('/organization-meta', authMiddleware, organizationMetaRoute)
 
 router.use('/user-address', authMiddleware, userAddressRoute)
+
 router.use('/asset', authMiddleware, assetsRoute)
+
+router.use('/notification', authMiddleware, notificationRoutes)
+
 router.use('/callback', callBackRoute)
 
 router.get('/sample', asyncHandler(sampleController))
