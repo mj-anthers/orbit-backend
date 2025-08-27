@@ -26,6 +26,13 @@ const notificationUpdateSchema = {
     }),
 }
 
+const notificationPreviewSchema = {
+    body: Joi.object({
+        data: Joi.object().optional(),
+        template: Joi.string().required(),
+    }),
+}
+
 const notificationCreateValidate = commonValidate.validate(
     notificationCreateSchema
 )
@@ -34,8 +41,13 @@ const notificationUpdateValidate = commonValidate.validate(
     notificationUpdateSchema
 )
 
+const notificationPreviewValidate = commonValidate.validate(
+    notificationPreviewSchema
+)
+
 export default {
     notificationCreateValidate,
     notificationIdValidate,
     notificationUpdateValidate,
+    notificationPreviewValidate,
 }

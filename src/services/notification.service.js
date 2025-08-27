@@ -1,8 +1,9 @@
 import { throwSpecificError } from '../middlewares/error.js'
 import httpStatus from 'http-status'
-import { AppError, asyncHandler, consoleLog } from '../utils/index.js'
-import { LeadProviderProgram, Notification } from '../../models/index.js'
+import { AppError, consoleLog } from '../utils/index.js'
+import { Notification } from '../../models/index.js'
 import { Op } from 'sequelize'
+import htmlRenderer from '../helpers/html-render.js'
 
 export default {
     notificationCreate: async ({ body, organization }) => {
@@ -159,6 +160,21 @@ export default {
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
                 'NOTIFICATION_E15'
+            )
+        }
+    },
+
+    notificationPreview: async ({ data, template }) => {
+        try {
+            return await htmlRenderer.render({
+                data,
+                template,
+            })
+        } catch (error) {
+            throwSpecificError(
+                error,
+                httpStatus.INTERNAL_SERVER_ERROR,
+                'NOTIFICATION_E18'
             )
         }
     },

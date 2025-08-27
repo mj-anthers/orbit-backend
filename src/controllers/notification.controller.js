@@ -125,4 +125,21 @@ export default {
             )
         }
     }),
+
+    notificationPreview: asyncHandler(async (req, res) => {
+        try {
+            const data = await notificationService.notificationPreview(req.body)
+            return ResponseHandler.success(req, res, {
+                code: httpStatus.OK,
+                messageCode: 'NOTIFICATION_S7',
+                data,
+            })
+        } catch (error) {
+            throwSpecificError(
+                error,
+                httpStatus.INTERNAL_SERVER_ERROR,
+                'NOTIFICATION_E17'
+            )
+        }
+    }),
 }

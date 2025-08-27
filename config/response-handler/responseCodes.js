@@ -239,6 +239,7 @@ export default {
         NOTIFICATION_S4: 'Notification updated successfully',
         NOTIFICATION_S5: 'Notification deleted successfully',
         NOTIFICATION_S6: 'Notification status toggled successfully',
+        NOTIFICATION_S7: 'Notification preview rendered successfully',
 
         NOTIFICATION_E1: 'Notification failed to create',
         NOTIFICATION_E2: 'Notification failed to create',
@@ -256,5 +257,7 @@ export default {
         NOTIFICATION_E14: 'Notification failed to toggle status',
         NOTIFICATION_E15: 'Notification failed to toggle status',
         NOTIFICATION_E16: 'Notification not found',
+        NOTIFICATION_E17: 'Failed to render HTML preview',
+        NOTIFICATION_E18: 'Failed to render HTML preview',
     },
 }

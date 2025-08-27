@@ -39,4 +39,10 @@ router.patch(
     notificationController.notificationToggleStatus
 )
 
+router.post(
+    '/preview',
+    notificationValidate.notificationPreviewValidate,
+    notificationController.notificationPreview
+)
+
 export default router
