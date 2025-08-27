@@ -28,7 +28,7 @@ const notificationUpdateSchema = {
 
 const notificationPreviewSchema = {
     body: Joi.object({
-        data: Joi.object().optional(),
+        data: Joi.object().allow(null),
         template: Joi.string().required(),
     }),
 }
