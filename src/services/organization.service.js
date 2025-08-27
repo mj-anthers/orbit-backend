@@ -31,10 +31,7 @@ export default {
                         transaction,
                     }
                 )
-                return {
-                    id: organizationDatum.id,
-                    name: organizationDatum.name,
-                }
+                return organizationDatum.toJSON()
             })
         } catch (error) {
             throwSpecificError(
