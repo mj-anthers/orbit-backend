@@ -122,7 +122,7 @@ LeadProvider.associate = (models) => {
     })
     LeadProvider.hasMany(models.Lead, {
         foreignKey: 'leadProvider',
-        as: 'leadProviderDatum',
+        as: 'leadProviderLeads',
         onDelete: 'CASCADE',
     })
 }

@@ -2,12 +2,14 @@ import { throwSpecificError } from '../middlewares/index.js'
 import httpStatus from 'http-status'
 import { AppError, consoleLog } from '../utils/index.js'
 import {
+    Lead,
     LeadProvider,
     LeadProviderProgram,
     Organization,
     User,
     UserOrganization,
 } from '../../models/index.js'
+import { Sequelize } from 'sequelize'
 
 export default {
     leadProviderCreate: async ({
@@ -54,7 +56,31 @@ export default {
                 },
                 order: [['createdAt', 'DESC']],
                 limit,
+                attributes: {
+                    include: [
+                        [
+                            Sequelize.literal(
+                                'COUNT("leadProviderLeads"."id")'
+                            ),
+                            'leadCount',
+                        ],
+                        [Sequelize.literal('0'), 'earnings'],
+                        [Sequelize.literal('0'), 'payouts'],
+                    ],
+                },
                 include: [
+                    {
+                        model: Lead,
+                        as: 'leadProviderLeads',
+                        attributes: [],
+                        duplicating: false,
+                        required: false,
+                    },
+                    {
+                        model: LeadProviderProgram,
+                        as: 'leadProviderProgramDatum',
+                        attributes: ['id', 'title'],
+                    },
                     {
                         model: User,
                         as: 'userLeadProviderDatum',
@@ -76,16 +102,21 @@ export default {
                             },
                         ],
                     },
-                    {
-                        model: LeadProviderProgram,
-                        as: 'leadProviderProgramDatum',
-                        attributes: ['id', 'title'],
-                    },
+                ],
+                group: [
+                    'LeadProvider.id',
+                    'leadProviderProgramDatum.id',
+                    'userLeadProviderDatum.id',
+                    'userCreatedByDatum.id',
+                    'userOrganizationDatum.id',
+                    'userOrganizationDatum->organizationDatum.id',
                 ],
             }
+
             if (after) {
                 paginationOptions.after = after
             }
+
             return await LeadProvider.paginate(paginationOptions)
         } catch (error) {
             throwSpecificError(
