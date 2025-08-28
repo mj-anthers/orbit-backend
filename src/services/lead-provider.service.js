@@ -60,7 +60,7 @@ export default {
                     include: [
                         [
                             Sequelize.literal(
-                                'COUNT("leadProviderLeads"."id")'
+                                'COUNT("leadProviderLeads"."id")::int'
                             ),
                             'leadCount',
                         ],
@@ -73,6 +73,9 @@ export default {
                         model: Lead,
                         as: 'leadProviderLeads',
                         attributes: [],
+                        where: {
+                            isDeleted: false,
+                        },
                         duplicating: false,
                         required: false,
                     },
