@@ -21,6 +21,13 @@ router.get(
     leadProviderValidate.leadProviderIdValidate,
     leadProviderController.leadProviderDetails
 )
+
+router.get(
+    '/:id/metrics',
+    leadProviderValidate.leadProviderIdValidate,
+    leadProviderController.leadProviderMetrics
+)
+
 router.put(
     '/:id',
     leadProviderValidate.leadProviderUpdateValidate,

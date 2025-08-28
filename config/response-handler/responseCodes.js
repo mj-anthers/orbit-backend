@@ -101,6 +101,8 @@ export default {
         LEAD_PROVIDER_PROGRAM_E14: 'Lead provider program not found',
         LEAD_PROVIDER_PROGRAM_E15: 'Lead provider program not found',
         LEAD_PROVIDER_PROGRAM_E16: 'Lead provider program not found',
+        LEAD_PROVIDER_PROGRAM_E17: 'Failed to fetch lead provider metrics',
+        LEAD_PROVIDER_PROGRAM_E18: 'Failed to fetch lead provider metrics',
 
         LEAD_PROVIDER_PROGRAM_S1: 'Lead provider program created successfully',
         LEAD_PROVIDER_PROGRAM_S2: 'Lead provider program listed successfully',
@@ -110,6 +112,7 @@ export default {
         LEAD_PROVIDER_PROGRAM_S5: 'Lead provider program deleted successfully',
         LEAD_PROVIDER_PROGRAM_S6:
             'Lead provider program status changed successfully',
+        LEAD_PROVIDER_PROGRAM_S7: 'Lead provider metrics fetched successfully',
 
         LEAD_S1: 'Lead created successfully',
         LEAD_S2: 'Lead listed successfully',

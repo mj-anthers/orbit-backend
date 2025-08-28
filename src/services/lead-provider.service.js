@@ -166,17 +166,10 @@ export default {
                 ],
             })
 
-            const metrics = {
-                referralRevenue: 23,
-                numberOfReferrals: 0,
-                payoutsProcessed: 12,
-                pendingPayouts: 23,
-            }
-
             if (!leadProviderDatum)
                 throw new AppError(httpStatus.NOT_FOUND, 'LEAD_PROVIDER_E15')
 
-            return { leadProviderDatum, metrics }
+            return leadProviderDatum
         } catch (error) {
             throwSpecificError(
                 error,
@@ -248,6 +241,23 @@ export default {
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
                 'LEAD_PROVIDER_E13'
+            )
+        }
+    },
+
+    leadProviderMetrics: async (id) => {
+        try {
+            return {
+                referralRevenue: 23,
+                numberOfReferrals: 0,
+                payoutsProcessed: 12,
+                pendingPayouts: 23,
+            }
+        } catch (error) {
+            throwSpecificError(
+                error,
+                httpStatus.INTERNAL_SERVER_ERROR,
+                'LEAD_PROVIDER_E18'
             )
         }
     },

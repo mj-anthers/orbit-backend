@@ -118,4 +118,23 @@ export default {
             )
         }
     }),
+
+    leadProviderMetrics: asyncHandler(async (req, res) => {
+        try {
+            const data = await leadProviderService.leadProviderMetrics(
+                req.params.id
+            )
+            return ResponseHandler.success(req, res, {
+                code: httpStatus.OK,
+                messageCode: 'LEAD_PROVIDER_PROGRAM_S7',
+                data: data,
+            })
+        } catch (error) {
+            throwSpecificError(
+                error,
+                httpStatus.INTERNAL_SERVER_ERROR,
+                'LEAD_PROVIDER_E17'
+            )
+        }
+    }),
 }
