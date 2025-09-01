@@ -4,6 +4,7 @@ import { AppError, consoleLog } from '../utils/index.js'
 import {
     Lead,
     LeadProvider,
+    LeadProviderMeta,
     LeadProviderProgram,
     Organization,
     User,
@@ -162,6 +163,10 @@ export default {
                         model: LeadProviderProgram,
                         as: 'leadProviderProgramDatum',
                         attributes: ['id', 'title'],
+                    },
+                    {
+                        model: LeadProviderMeta,
+                        as: 'leadProviderMetaDatum',
                     },
                 ],
             })

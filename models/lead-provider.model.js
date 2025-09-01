@@ -125,6 +125,11 @@ LeadProvider.associate = (models) => {
         as: 'leadProviderLeads',
         onDelete: 'CASCADE',
     })
+    LeadProvider.hasOne(models.LeadProviderMeta, {
+        foreignKey: 'leadProvider',
+        as: 'leadProviderMetaDatum',
+        onDelete: 'CASCADE',
+    })
 }
 
 LeadProvider.paginate = sequelizeCursorPaginate.makePaginate(LeadProvider)
