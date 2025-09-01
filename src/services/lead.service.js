@@ -208,7 +208,7 @@ export default {
                     {
                         model: LeadCommissionEvent,
                         as: 'commissionEvents',
-                        attributes: ['title', 'amount', 'commissionBasis'],
+                        attributes: ['type', 'amount', 'commissionBasis'],
                     },
                 ],
             })

@@ -67,7 +67,7 @@ const LeadCommissionEvent = sequelize.define(
 LeadCommissionEvent.associate = (models) => {
     LeadCommissionEvent.belongsTo(models.Lead, {
         foreignKey: 'lead',
-        as: 'commissionEvents',
+        as: 'leadCommissionEvents',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
     })

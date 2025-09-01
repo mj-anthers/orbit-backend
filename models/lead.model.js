@@ -222,6 +222,7 @@ Lead.associate = (models) => {
     })
     Lead.hasMany(models.LeadCommissionEvent, {
         foreignKey: 'lead',
+        as: 'commissionEvents',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
     })
