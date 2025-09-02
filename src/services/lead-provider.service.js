@@ -252,12 +252,37 @@ export default {
 
     leadProviderMetrics: async (id) => {
         try {
-            return {
-                referralRevenue: 23,
-                numberOfReferrals: 0,
-                payoutsProcessed: 12,
-                pendingPayouts: 23,
-            }
+            const data = []
+
+            data.push({
+                title: 'Referral revenue',
+                value: '$23',
+                link: 'https://orbit-dev.anthers.com',
+                tooltip: 'Some tooltip here - 2',
+            })
+
+            data.push({
+                title: 'Number of referrals',
+                value: '0',
+                link: 'https://orbit-dev.anthers.com',
+                tooltip: 'Some tooltip here - 1',
+            })
+
+            data.push({
+                title: 'Payouts processed',
+                value: '$0',
+                link: 'https://orbit-dev.anthers.com',
+                tooltip: 'Some tooltip here - 3',
+            })
+
+            data.push({
+                title: 'Pending payouts',
+                value: '$23',
+                link: 'https://orbit-dev.anthers.com',
+                tooltip: 'Some tooltip here - 4',
+            })
+
+            return data
         } catch (error) {
             throwSpecificError(
                 error,
