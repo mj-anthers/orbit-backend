@@ -190,6 +190,7 @@ const Lead = sequelize.define(
 Lead.associate = (models) => {
     Lead.belongsTo(models.Customer, {
         foreignKey: 'customer',
+        as: 'customerDatum',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
     })

@@ -11,6 +11,7 @@ import {
     LeadProviderProgramCondition,
     User,
     sequelize,
+    Customer,
 } from '../../models/index.js'
 import { Op } from 'sequelize'
 import RuleEngine from '../helpers/rule-engine/RuleEngine.js'
@@ -162,6 +163,11 @@ export default {
                         model: LeadProviderProgram,
                         as: 'leadProviderProgramDatum',
                         attributes: ['id', 'title'],
+                    },
+                    {
+                        model: Customer,
+                        as: 'customerDatum',
+                        attributes: ['id', 'name', 'email', 'phoneNumber'],
                     },
                 ],
             }

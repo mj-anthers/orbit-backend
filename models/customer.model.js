@@ -63,6 +63,7 @@ Customer.associate = (models) => {
 
     Customer.hasMany(models.Lead, {
         foreignKey: 'customer',
+        as: 'customerLeads',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
     })
