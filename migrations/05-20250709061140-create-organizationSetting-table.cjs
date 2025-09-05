@@ -5,8 +5,10 @@ module.exports = {
         await queryInterface.createTable('organizationSettings', {
             id: {
                 type: Sequelize.UUID,
+                defaultValue: Sequelize.UUID,
                 primaryKey: true,
-                allowNull: false,
+                unique: true,
+                allowNull: false
             },
             organization: {
                 type: Sequelize.UUID,
@@ -19,7 +21,7 @@ module.exports = {
                 onDelete: 'CASCADE',
             },
             formData: {
-                type: Sequelize.JSON,
+                type: Sequelize.JSONB,
                 allowNull: true,
             },
             isActive: {

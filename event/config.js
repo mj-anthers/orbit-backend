@@ -48,4 +48,12 @@ const EVENTS = Object.freeze({
     USER_ADDRESS_DELETE: 'userAddress.delete',
 })
 
-export default EVENTS
+const SUB_TYPES = {
+    EMAIL: 'email',
+}
+
+const EMAIL_EVENTS = {
+    LEAD_PROVIDER_CREATED: 'leadProvider.created',
+}
+
+export { EVENTS, SUB_TYPES, EMAIL_EVENTS }

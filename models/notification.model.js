@@ -21,6 +21,18 @@ const Notification = sequelize.define(
             type: DataTypes.UUID,
             allowNull: false,
         },
+        cc: {
+            type: DataTypes.ARRAY(DataTypes.STRING),
+            defaultValue: [],
+        },
+        bcc: {
+            type: DataTypes.ARRAY(DataTypes.STRING),
+            defaultValue: [],
+        },
+        subject: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+        },
         template: {
             type: DataTypes.TEXT,
             allowNull: false,

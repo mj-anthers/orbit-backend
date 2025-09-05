@@ -6,9 +6,10 @@ module.exports = {
         await queryInterface.createTable('assets', {
             id: {
                 type: Sequelize.UUID,
-                defaultValue: Sequelize.UUIDV4,
+                defaultValue: Sequelize.UUID,
                 primaryKey: true,
-                allowNull: false,
+                unique: true,
+                allowNull: false
             },
             name: {
                 type: Sequelize.STRING,

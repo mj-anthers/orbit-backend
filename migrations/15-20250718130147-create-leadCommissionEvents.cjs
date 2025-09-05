@@ -12,9 +12,10 @@ module.exports = {
         await queryInterface.createTable('leadCommissionEvents', {
             id: {
                 type: Sequelize.UUID,
-                allowNull: false,
+                defaultValue: Sequelize.UUID,
                 primaryKey: true,
-                defaultValue: Sequelize.UUIDV4,
+                unique: true,
+                allowNull: false
             },
             lead: {
                 type: Sequelize.UUID,

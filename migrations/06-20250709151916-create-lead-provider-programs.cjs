@@ -19,9 +19,10 @@ module.exports = {
         await queryInterface.createTable('leadProviderPrograms', {
             id: {
                 type: Sequelize.UUID,
-                allowNull: false,
+                defaultValue: Sequelize.UUID,
                 primaryKey: true,
-                defaultValue: Sequelize.UUIDV4,
+                unique: true,
+                allowNull: false
             },
             title: {
                 type: Sequelize.STRING,

@@ -8,10 +8,10 @@ module.exports = {
         await queryInterface.createTable('organizationAddresses', {
             id: {
                 type: Sequelize.UUID,
-                defaultValue: Sequelize.UUIDV4,
+                defaultValue: Sequelize.UUID,
                 primaryKey: true,
-                allowNull: false,
-                unique: true
+                unique: true,
+                allowNull: false
             },
             organization: {
                 type: Sequelize.UUID,

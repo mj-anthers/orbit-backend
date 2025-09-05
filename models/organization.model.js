@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '../config/db/database.js'
 import sequelizeCursorPaginate from 'sequelize-cursor-pagination'
+import { LeadProviderEventTimeline } from './lead-provider-event-timeline.model.js'
 
 const TABLE_NAME = 'organizations'
 const MODEL_NAME = 'Organization'
@@ -120,6 +121,11 @@ Organization.associate = (models) => {
     Organization.hasMany(models.Notification, {
         foreignKey: 'organization',
         as: 'organizationNotifications',
+        onDelete: 'CASCADE',
+    })
+    Organization.hasMany(models.LeadProviderEventTimeline, {
+        foreignKey: 'organization',
+        as: 'organizationLeadProviderEventTimelines',
         onDelete: 'CASCADE',
     })
 }

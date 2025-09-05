@@ -4,6 +4,9 @@ import commonValidate from './common-validate.middleware.js'
 const notificationBaseSchema = Joi.object({
     event: Joi.string().required(),
     organization: commonValidate.validateUUID,
+    cc: Joi.array().items(commonValidate.validateEmail),
+    bcc: Joi.array().items(commonValidate.validateEmail),
+    subject: Joi.string().required(),
     template: Joi.string().required(),
 })
 
@@ -29,6 +32,7 @@ const notificationUpdateSchema = {
 const notificationPreviewSchema = {
     body: Joi.object({
         data: Joi.object().allow(null),
+        subject: Joi.string().required(),
         template: Joi.string().required(),
     }),
 }

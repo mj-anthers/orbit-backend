@@ -1,19 +1,20 @@
-'use strict'
+'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('notifications', {
+
+    await queryInterface.sequelize.query(`
+      CREATE TYPE "events_status" AS ENUM ('pending', 'successful', 'failed');
+    `);
+
+    await queryInterface.createTable('leadProviderEventTimelines', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUID,
         primaryKey: true,
         unique: true,
         allowNull: false
-      },
-      event: {
-        type: Sequelize.STRING,
-        allowNull: false,
       },
       organization: {
         type: Sequelize.UUID,
@@ -25,21 +26,32 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
-      cc: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
+      leadProvider: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'leadProviders',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      },
+      event: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      bcc: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
+      subEvent: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      subject: {
-        type: Sequelize.TEXT,
+      status: {
+        type: 'events_status',
         allowNull: false,
+        defaultValue: 'pending',
       },
-      template: {
-        type: Sequelize.TEXT,
-        allowNull: false,
+      meta: {
+        type: Sequelize.JSONB,
+        allowNull: true,
       },
       isActive: {
         type: Sequelize.BOOLEAN,
@@ -61,10 +73,16 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-    })
+    });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('notifications')
+    // Drop table
+    await queryInterface.dropTable('leadProviderEventTimelines');
+
+    // Drop ENUM type
+    await queryInterface.sequelize.query(`
+      DROP TYPE IF EXISTS "events_status";
+    `);
   },
-}
+};

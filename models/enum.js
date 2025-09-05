@@ -6,4 +6,10 @@ const COMMISSION_CALCULATION_TYPES = Object.freeze({
     PERCENT: 'percent',
 })
 
-export { ADDRESS_TYPE_ENUM, COMMISSION_CALCULATION_TYPES }
+const TIMELINE_STATUS = Object.freeze({
+    PENDING: 'pending',
+    SUCCESSFUL: 'percent',
+    FAILED: 'failed',
+})
+
+export { ADDRESS_TYPE_ENUM, COMMISSION_CALCULATION_TYPES, TIMELINE_STATUS }

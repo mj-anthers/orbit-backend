@@ -7,10 +7,12 @@ import {
     LeadProviderMeta,
     LeadProviderProgram,
     Organization,
+    OrganizationSetting,
     User,
     UserOrganization,
 } from '../../models/index.js'
 import { Sequelize } from 'sequelize'
+import { LeadProviderEvent } from '../events/index.js'
 
 export default {
     leadProviderCreate: async ({
@@ -35,6 +37,10 @@ export default {
                     createdBy: user.id,
                     isActive: true,
                 },
+            })
+            LeadProviderEvent.invokeCreateEvent({
+                leadProvider: record,
+                organization: userOrganization.organizationDatum,
             })
             if (!created)
                 throw new AppError(httpStatus.CONFLICT, 'LEAD_PROVIDER_E11')
@@ -183,12 +189,13 @@ export default {
             )
         }
     },
-    leadProviderUpdate: async ({ id, userOrganization }) => {
+    leadProviderUpdate: async ({ id, userOrganization, tags }) => {
         try {
             await LeadProvider.update(
                 {
                     organization: userOrganization.organizationDatum.id,
                     userOrganization: userOrganization.id,
+                    tags,
                 },
                 {
                     where: {

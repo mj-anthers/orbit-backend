@@ -1,11 +1,9 @@
 import Joi from 'joi'
 import commonValidate from './common-validate.middleware.js'
 
-const organizationSettingSchema = {
-    body: Joi.object({
-        formData: Joi.object().allow(null).required(),
-    }),
-}
+const organizationSettingSchema = Joi.object({
+    formData: Joi.array().required(),
+})
 
 const organizationIdSchema = {
     params: Joi.object({

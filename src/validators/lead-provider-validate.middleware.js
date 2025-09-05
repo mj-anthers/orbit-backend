@@ -24,6 +24,7 @@ const leadProviderUpdateSchema = {
     }),
     body: {
         userOrganization: commonValidate.validateUUID,
+        tags: Joi.array().items(Joi.string()),
     },
 }
 

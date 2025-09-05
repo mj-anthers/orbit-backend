@@ -23,7 +23,7 @@ const OrganizationSetting = sequelize.define(
             onUpdate: 'CASCADE',
         },
         formData: {
-            type: DataTypes.JSON,
+            type: DataTypes.JSONB,
             allowNull: true,
         },
     },

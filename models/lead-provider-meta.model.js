@@ -30,6 +30,10 @@ const LeadProviderMeta = sequelize.define(
             allowNull: true,
             defaultValue: null,
         },
+        formData: {
+            type: DataTypes.JSONB,
+            allowNull: true,
+        },
         isActive: {
             type: DataTypes.BOOLEAN,
             defaultValue: true,

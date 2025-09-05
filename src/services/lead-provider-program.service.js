@@ -7,7 +7,7 @@ import {
     LeadProviderProgramCondition,
     sequelize,
 } from '../../models/index.js'
-import { LeadProviderProgramCommissionEvent } from '../../models/lead-provider-program-commission-event.model.js'
+import { LeadProviderProgramCommissionEvent } from '../../models/index.js'
 
 export default {
     leadProviderProgramCreate: async ({

@@ -14,6 +14,8 @@ export default {
                     },
                 },
             })
+
+            consoleLog(JSON.stringify(command))
             const response = await snsClient.send(command)
             consoleLog('Event sent:', JSON.stringify(response, null, 2))
             consoleLog('Event data:', JSON.stringify(data, null, 2))

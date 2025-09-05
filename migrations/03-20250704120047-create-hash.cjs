@@ -6,8 +6,10 @@ module.exports = {
         await queryInterface.createTable('hashes', {
             id: {
                 type: Sequelize.UUID,
+                defaultValue: Sequelize.UUID,
                 primaryKey: true,
                 unique: true,
+                allowNull: false
             },
             key: {
                 type: Sequelize.STRING,

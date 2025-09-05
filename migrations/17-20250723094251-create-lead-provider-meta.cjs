@@ -6,9 +6,10 @@ module.exports = {
         await queryInterface.createTable('leadProviderMeta', {
             id: {
                 type: Sequelize.UUID,
-                defaultValue: Sequelize.UUIDV4,
+                defaultValue: Sequelize.UUID,
                 primaryKey: true,
-                allowNull: false,
+                unique: true,
+                allowNull: false
             },
             leadProvider: {
                 type: Sequelize.UUID,

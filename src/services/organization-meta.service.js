@@ -10,7 +10,9 @@ export default {
                     ...body,
                 },
                 {
-                    organization,
+                    where: {
+                        organization,
+                    },
                 }
             )
             return true

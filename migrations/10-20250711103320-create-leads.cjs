@@ -15,7 +15,8 @@ module.exports = {
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUID,
                 primaryKey: true,
-                allowNull: false,
+                unique: true,
+                allowNull: false
             },
             leadProvider: {
                 type: Sequelize.UUID,

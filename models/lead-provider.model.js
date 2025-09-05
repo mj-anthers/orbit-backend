@@ -54,6 +54,11 @@ const LeadProvider = sequelize.define(
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         },
+        tags: {
+            type: DataTypes.ARRAY(DataTypes.STRING),
+            allowNull: false,
+            defaultValue: [],
+        },
         createdBy: {
             type: DataTypes.UUID,
             allowNull: false,
@@ -128,6 +133,11 @@ LeadProvider.associate = (models) => {
     LeadProvider.hasOne(models.LeadProviderMeta, {
         foreignKey: 'leadProvider',
         as: 'leadProviderMetaDatum',
+        onDelete: 'CASCADE',
+    })
+    LeadProvider.hasMany(models.LeadProviderMeta, {
+        foreignKey: 'leadProvider',
+        as: 'leadProviderTimelines',
         onDelete: 'CASCADE',
     })
 }

@@ -1,6 +1,6 @@
 import httpStatus from 'http-status'
 import event from '../../event/index.js'
-import EVENTS from '../../event/config.js'
+import { EVENTS } from '../../event/config.js'
 import { Router } from 'express'
 import { authMiddleware } from '../middlewares/auth.middleware.js'
 import sampleController from '../controllers/sample.controller.js'

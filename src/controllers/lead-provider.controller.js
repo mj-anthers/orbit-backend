@@ -68,6 +68,7 @@ export default {
             const data = await leadProviderService.leadProviderUpdate({
                 id: req.params.id,
                 userOrganization: req.userOrganization,
+                tags: req.body.tags,
             })
             return ResponseHandler.success(req, res, {
                 code: httpStatus.OK,
