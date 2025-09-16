@@ -19,6 +19,8 @@ import assetsRoute from './asset.route.js'
 import organizationMetaRoute from './organization-meta.route.js'
 import leadProviderMetaRoute from './lead-provider-meta.route.js'
 import notificationRoutes from './notification.route.js'
+import leadProviderCommentRoutes from './lead-provider-comment.route.js'
+import timelineRoutes from './timeline.route.js'
 
 const router = Router()
 
@@ -53,6 +55,10 @@ router.use('/user-address', authMiddleware, userAddressRoute)
 router.use('/asset', authMiddleware, assetsRoute)
 
 router.use('/notification', authMiddleware, notificationRoutes)
+
+router.use('/lead-provider-comment', authMiddleware, leadProviderCommentRoutes)
+
+router.use('/timeline', authMiddleware, timelineRoutes)
 
 router.use('/callback', callBackRoute)
 

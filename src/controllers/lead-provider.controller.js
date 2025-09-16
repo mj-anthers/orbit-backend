@@ -31,6 +31,7 @@ export default {
             const data = await leadProviderService.leadProviderList({
                 user: req.user,
                 ...req.pagination,
+                query: req.query,
             })
             return ResponseHandler.success(req, res, {
                 code: httpStatus.OK,
@@ -134,7 +135,27 @@ export default {
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
-                'LEAD_PROVIDER_E17'
+                'LEAD_PROVIDER_E16'
+            )
+        }
+    }),
+
+    leadProviderChangeLeadProviderProgram: asyncHandler(async (req, res) => {
+        try {
+            const data = await leadProviderService.changeLeadProviderProgram({
+                id: req.params.id,
+                leadProviderProgram: req.leadProviderProgram,
+            })
+            return ResponseHandler.success(req, res, {
+                code: httpStatus.OK,
+                messageCode: 'LEAD_PROVIDER_PROGRAM_S8',
+                data: data,
+            })
+        } catch (error) {
+            throwSpecificError(
+                error,
+                httpStatus.INTERNAL_SERVER_ERROR,
+                'LEAD_PROVIDER_E18'
             )
         }
     }),

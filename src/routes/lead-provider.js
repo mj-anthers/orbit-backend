@@ -45,4 +45,11 @@ router.patch(
     leadProviderController.leadProviderToggleStatus
 )
 
+router.patch(
+    '/:id/change-program',
+    leadProviderValidate.leadProviderIdValidate,
+    commonValidate.validatePostLeadProviderProgram,
+    leadProviderController.leadProviderChangeLeadProviderProgram
+)
+
 export default router

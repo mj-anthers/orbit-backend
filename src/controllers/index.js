@@ -10,6 +10,8 @@ import assetController from './asset.controller.js'
 import leadProviderMetaController from './lead-provider-meta.controller.js'
 import organizationMetaController from './organization-meta.controller.js'
 import notificationController from './notification.controller.js'
+import leadProviderCommentController from './lead-provider-comment.controller.js'
+import timelineController from './timeline.controller.js'
 
 export {
     leadProviderController,
@@ -23,6 +25,7 @@ export {
     assetController,
     leadProviderMetaController,
     organizationMetaController,
-
     notificationController,
+    leadProviderCommentController,
+    timelineController,
 }

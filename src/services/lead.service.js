@@ -137,7 +137,8 @@ export default {
     },
     leadList: async ({ user, after, limit, query }) => {
         try {
-            const where = paginationFilter.parseSequelizeWhere(query)
+            const { page, limit: _limit, ...filterQuery } = query
+            const where = paginationFilter.parseSequelizeWhere(filterQuery)
             where['organization'] = {
                 [Op.in]: user.organizationIds,
             }

@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 import sequelizeCursorPaginate from 'sequelize-cursor-pagination'
 import sequelize from '../config/db/database.js'
+import { LeadProviderProgram } from './lead-provider-program.model.js'
 
 const TABLE_NAME = 'leadProviders'
 const MODEL_NAME = 'LeadProvider'
@@ -138,6 +139,11 @@ LeadProvider.associate = (models) => {
     LeadProvider.hasMany(models.LeadProviderMeta, {
         foreignKey: 'leadProvider',
         as: 'leadProviderTimelines',
+        onDelete: 'CASCADE',
+    })
+    LeadProviderProgram.hasMany(models.LeadProviderComment, {
+        foreignKey: 'leadProvider',
+        as: 'leadProviderComments',
         onDelete: 'CASCADE',
     })
 }

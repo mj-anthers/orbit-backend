@@ -253,6 +253,12 @@ const validateParamLeadProviderProgram = asyncHandler(
 const validateLeadProvider = asyncHandler(
     async ({ req, user, leadProvider, next }) => {
         try {
+            consoleLog({
+                id: leadProvider,
+                organization: {
+                    [Op.in]: user.organizationIds,
+                },
+            })
             const leadProviderDatum = await LeadProvider.findOne({
                 where: {
                     id: leadProvider,
@@ -303,7 +309,7 @@ const validateParamLeadProvider = asyncHandler(async (req, res, next) => {
         await validateLeadProvider({
             req,
             user,
-            leadProviderProgram: req.params.id,
+            leadProvider: req.params.id,
             next,
         })
     } catch (error) {

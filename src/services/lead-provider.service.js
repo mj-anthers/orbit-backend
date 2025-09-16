@@ -1,17 +1,16 @@
 import { throwSpecificError } from '../middlewares/index.js'
 import httpStatus from 'http-status'
-import { AppError, consoleLog } from '../utils/index.js'
+import { AppError, consoleLog, paginationFilter } from '../utils/index.js'
 import {
     Lead,
     LeadProvider,
     LeadProviderMeta,
     LeadProviderProgram,
     Organization,
-    OrganizationSetting,
     User,
     UserOrganization,
 } from '../../models/index.js'
-import { Sequelize } from 'sequelize'
+import { Op, Sequelize } from 'sequelize'
 import { LeadProviderEvent } from '../events/index.js'
 
 export default {
@@ -54,13 +53,16 @@ export default {
             )
         }
     },
-    leadProviderList: async ({ user, after, limit }) => {
+    leadProviderList: async ({ user, after, limit, query }) => {
         try {
+            const { limit, ...otherQuery } = query
+            const where = paginationFilter.parseSequelizeWhere(otherQuery)
+            where['organization'] = {
+                [Op.in]: user.organizationIds,
+            }
+
             const paginationOptions = {
-                where: {
-                    createdBy: user.id,
-                    isDeleted: false,
-                },
+                where,
                 order: [['createdAt', 'DESC']],
                 limit,
                 attributes: {
@@ -294,7 +296,31 @@ export default {
             throwSpecificError(
                 error,
                 httpStatus.INTERNAL_SERVER_ERROR,
-                'LEAD_PROVIDER_E18'
+                'LEAD_PROVIDER_E17'
+            )
+        }
+    },
+
+    changeLeadProviderProgram: async ({ id, leadProviderProgram }) => {
+        try {
+            const [updated] = await LeadProvider.update(
+                {
+                    leadProviderProgram: leadProviderProgram.id,
+                },
+                {
+                    where: {
+                        id,
+                    },
+                }
+            )
+            if (updated === 0)
+                throw new AppError(httpStatus.NOT_FOUND, 'LEAD_PROVIDER_E19')
+            return true
+        } catch (error) {
+            throwSpecificError(
+                error,
+                httpStatus.INTERNAL_SERVER_ERROR,
+                'LEAD_PROVIDER_E20'
             )
         }
     },

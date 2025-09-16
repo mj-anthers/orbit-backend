@@ -158,6 +158,11 @@ User.associate = (models) => {
         as: 'userAddresses',
         onDelete: 'CASCADE',
     })
+    User.hasMany(models.LeadProviderComment, {
+        foreignKey: 'createdBy',
+        as: 'userLeadProviderComments',
+        onDelete: 'CASCADE',
+    })
 }
 
 export { User, TABLE_NAME, USER_TYPES }

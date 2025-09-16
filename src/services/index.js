@@ -11,6 +11,8 @@ import assetsService from './assets.service.js'
 import organizationMetaService from './organization-meta.service.js'
 import leadProviderMetaService from './lead-provider-meta.service.js'
 import notificationService from './notification.service.js'
+import leadProviderCommentService from './lead-provider-comment.service.js'
+import timelineService from './timeline.service.js'
 
 export {
     leadProviderService,
@@ -25,6 +27,7 @@ export {
     assetsService,
     organizationMetaService,
     leadProviderMetaService,
-
     notificationService,
+    leadProviderCommentService,
+    timelineService,
 }

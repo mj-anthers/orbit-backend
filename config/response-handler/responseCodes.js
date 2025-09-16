@@ -38,6 +38,14 @@ export default {
         AUTH_S1: 'User registered successfully',
         AUTH_S2: 'User logged in successfully',
 
+        LEAD_PROVIDER_S1: 'Lead-provider created successfully',
+        LEAD_PROVIDER_S2: 'Lead-provider listed successfully',
+        LEAD_PROVIDER_S3: 'Lead-provider details fetched successfully',
+        LEAD_PROVIDER_S4: 'Lead-provider updated successfully',
+        LEAD_PROVIDER_S5: 'Lead-provider deleted successfully',
+        LEAD_PROVIDER_S6: 'Lead-provider status changed successfully',
+        LEAD_PROVIDER_S7: 'Lead-provider metrics fetched successfully',
+
         LEAD_PROVIDER_E1: 'Error while creating the lead-provider',
         LEAD_PROVIDER_E2: 'Error while creating the lead-provider',
         LEAD_PROVIDER_E3: 'Error while listing lead-provider',
@@ -54,13 +62,11 @@ export default {
         LEAD_PROVIDER_E13: 'Error which toggling lead-provider status',
         LEAD_PROVIDER_E14: 'Lead-provider not found',
         LEAD_PROVIDER_E15: 'Lead-provider not found',
-
-        LEAD_PROVIDER_S1: 'Lead-provider created successfully',
-        LEAD_PROVIDER_S2: 'Lead-provider listed successfully',
-        LEAD_PROVIDER_S3: 'Lead-provider details fetched successfully',
-        LEAD_PROVIDER_S4: 'Lead-provider updated successfully',
-        LEAD_PROVIDER_S5: 'Lead-provider deleted successfully',
-        LEAD_PROVIDER_S6: 'Lead-provider status changed successfully',
+        LEAD_PROVIDER_E16: 'Failed to fetch lead-provider metrics',
+        LEAD_PROVIDER_E17: 'Failed to fetch lead-provider metrics',
+        LEAD_PROVIDER_E18: 'Failed change lead-provider program',
+        LEAD_PROVIDER_E19: 'Failed change lead-provider program',
+        LEAD_PROVIDER_E20: 'Failed change lead-provider program',
 
         ORGANIZATION_SETTING_E1:
             'Error while fetching organization setting details',
@@ -113,6 +119,8 @@ export default {
         LEAD_PROVIDER_PROGRAM_S6:
             'Lead provider program status changed successfully',
         LEAD_PROVIDER_PROGRAM_S7: 'Lead provider metrics fetched successfully',
+        LEAD_PROVIDER_PROGRAM_S8:
+            "Lead provider's program changed successfully",
 
         LEAD_S1: 'Lead created successfully',
         LEAD_S2: 'Lead listed successfully',
@@ -262,5 +270,53 @@ export default {
         NOTIFICATION_E16: 'Notification not found',
         NOTIFICATION_E17: 'Failed to render HTML preview',
         NOTIFICATION_E18: 'Failed to render HTML preview',
+
+        EXAMPLE_S1: 'Example created successfully',
+        EXAMPLE_S2: 'Example list fetched successfully',
+        EXAMPLE_S3: 'Example details fetched successfully',
+        EXAMPLE_S4: 'Example updated successfully',
+        EXAMPLE_S5: 'Example deleted successfully',
+
+        EXAMPLE_E1: 'Example failed to create',
+        EXAMPLE_E2: 'Example failed to create',
+        EXAMPLE_E3: 'Example failed to list',
+        EXAMPLE_E4: 'Example failed to list',
+        EXAMPLE_E5: 'Example failed to fetch details',
+        EXAMPLE_E6: 'Example failed to fetch details',
+        EXAMPLE_E7: 'Example not found',
+        EXAMPLE_E8: 'Example failed to update',
+        EXAMPLE_E9: 'Example failed to update',
+        EXAMPLE_E10: 'Example failed to delete',
+        EXAMPLE_E11: 'Example failed to delete',
+        EXAMPLE_E12: 'Example not found',
+        EXAMPLE_E13: 'Example not found',
+
+        LEAD_PROVIDER_COMMENT_S1: 'Lead provider comment created successfully',
+        LEAD_PROVIDER_COMMENT_S2:
+            'Lead provider comment list fetched successfully',
+        LEAD_PROVIDER_COMMENT_S3:
+            'Lead provider comment details fetched successfully',
+        LEAD_PROVIDER_COMMENT_S4: 'Lead provider comment updated successfully',
+        LEAD_PROVIDER_COMMENT_S5: 'Lead provider comment deleted successfully',
+
+        LEAD_PROVIDER_COMMENT_E1: 'Lead provider comment failed to create',
+        LEAD_PROVIDER_COMMENT_E2: 'Lead provider comment failed to create',
+        LEAD_PROVIDER_COMMENT_E3: 'Lead provider comment failed to list',
+        LEAD_PROVIDER_COMMENT_E4: 'Lead provider comment failed to list',
+        LEAD_PROVIDER_COMMENT_E5:
+            'Lead provider comment failed to fetch details',
+        LEAD_PROVIDER_COMMENT_E6:
+            'Lead provider comment failed to fetch details',
+        LEAD_PROVIDER_COMMENT_E7: 'Lead provider comment not found',
+        LEAD_PROVIDER_COMMENT_E8: 'Lead provider comment failed to update',
+        LEAD_PROVIDER_COMMENT_E9: 'Lead provider comment failed to update',
+        LEAD_PROVIDER_COMMENT_E10: 'Lead provider comment failed to delete',
+        LEAD_PROVIDER_COMMENT_E11: 'Lead provider comment failed to delete',
+        LEAD_PROVIDER_COMMENT_E12: 'Lead provider comment not found',
+        LEAD_PROVIDER_COMMENT_E13: 'Lead provider comment not found',
+
+        TIMELINE_S1: 'Error while fetching timelines',
+
+        TIMELINE_E1: 'Error while fetching timeline',
     },
 }

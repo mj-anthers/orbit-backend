@@ -10,6 +10,8 @@ import assetValidate from './asset-validate.middleware.js'
 import leadProviderMetaValidate from './lead-provider-meta.middleware.js'
 import organizationMetaValidate from './organization-meta.middleware.js'
 import notificationValidate from './notification-validate.middleware.js'
+import leadProviderCommentValidate from './lead-provider-comment-validate.middleware.js'
+import timelineValidate from './timeline-validate.middleware.js'
 
 export {
     commonValidate,
@@ -23,6 +25,7 @@ export {
     assetValidate,
     leadProviderMetaValidate,
     organizationMetaValidate,
-
     notificationValidate,
+    leadProviderCommentValidate,
+    timelineValidate,
 }

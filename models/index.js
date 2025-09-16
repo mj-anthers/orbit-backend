@@ -39,6 +39,7 @@ import { LeadProviderMeta } from './lead-provider-meta.model.js'
 import { OrganizationMeta } from './organization-meta.model.js'
 import { Notification } from './notification.model.js'
 import { LeadProviderEventTimeline } from './lead-provider-event-timeline.model.js'
+import { LeadProviderComment } from './lead-provider-comment.model.js'
 
 // Add models to sequelize instance (optional if already bound in each file)
 const models = {
@@ -60,6 +61,7 @@ const models = {
     OrganizationMeta,
     Notification,
     LeadProviderEventTimeline,
+    LeadProviderComment,
 }
 
 // Call associate for each model
@@ -109,4 +111,5 @@ export {
     ORGANIZATION_TYPES,
     Notification,
     LeadProviderEventTimeline,
+    LeadProviderComment,
 }

@@ -128,6 +128,11 @@ Organization.associate = (models) => {
         as: 'organizationLeadProviderEventTimelines',
         onDelete: 'CASCADE',
     })
+    Organization.hasMany(models.LeadProviderComment, {
+        foreignKey: 'organization',
+        as: 'organizationLeadProviderComments',
+        onDelete: 'CASCADE',
+    })
 }
 
 Organization.paginate = sequelizeCursorPaginate.makePaginate(Organization)
